@@ -5,22 +5,21 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Jal.Aop")]
-[assembly: AssemblyDescription("Just another library to do aspect oriented programming (based on Castle Windsor)")]
+[assembly: AssemblyTitle("Jal.Aop.Aspects.Serializer")]
+[assembly: AssemblyDescription("Useful serializers created for the Jal.Aop.Aspects library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Raul Naupari")]
-[assembly: AssemblyProduct("Jal.Aop")]
+[assembly: AssemblyProduct("Jal.Aop.Aspects.Serializer")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("219e4334-d91b-47bc-87be-fb3b759da545")]
+[assembly: Guid("d15f22bb-30db-49db-8db4-c89161914896")]
 
 // Version information for an assembly consists of the following four values:
 //

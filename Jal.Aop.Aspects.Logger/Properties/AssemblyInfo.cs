@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Jal.Aop")]
-[assembly: AssemblyDescription("Just another library to do aspect oriented programming (based on Castle Windsor)")]
+[assembly: AssemblyTitle("Jal.Aop.Aspects.Logger")]
+[assembly: AssemblyDescription("Logger integration (Common.Logging) for the Jal.Aop.Aspects library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Raul Naupari")]
-[assembly: AssemblyProduct("Jal.Aop")]
+[assembly: AssemblyProduct("Jal.Aop.Aspects.Logger")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("219e4334-d91b-47bc-87be-fb3b759da545")]
+[assembly: Guid("80a2195e-b444-4975-a0b0-53ee8ccc6f11")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,26 +1,24 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Jal.Aop")]
-[assembly: AssemblyDescription("Just another library to do aspect oriented programming (based on Castle Windsor)")]
+[assembly: AssemblyTitle("Jal.Aop.Installer")]
+[assembly: AssemblyDescription("Castle Windsor installer for the Jal.Aop library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Raul Naupari")]
-[assembly: AssemblyProduct("Jal.Aop")]
+[assembly: AssemblyProduct("Jal.Aop.Installer")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("219e4334-d91b-47bc-87be-fb3b759da545")]
+[assembly: Guid("cbc75d07-8054-4d41-adac-5049e4681286")]
 
 // Version information for an assembly consists of the following four values:
 //

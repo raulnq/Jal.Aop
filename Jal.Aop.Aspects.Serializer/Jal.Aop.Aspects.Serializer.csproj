@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}</ProjectGuid>
+    <ProjectGuid>{417DA4FD-83C9-4126-B506-2DAD884570A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jal.Aop</RootNamespace>
-    <AssemblyName>Jal.Aop</AssemblyName>
+    <RootNamespace>Jal.Aop.Aspects.Serializer</RootNamespace>
+    <AssemblyName>Jal.Aop.Aspects.Serializer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Jal.Locator">
+      <HintPath>..\packages\Jal.Locator.1.0.0.0\lib\net40\Jal.Locator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,16 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Impl\AbstractApect.cs" />
-    <Compile Include="Impl\AbstractAspectAttribute.cs" />
-    <Compile Include="Impl\PointCut.cs" />
-    <Compile Include="Impl\JoinPoint.cs" />
-    <Compile Include="Impl\OnMethodBoundaryAspect.cs" />
-    <Compile Include="Impl\OnRetryAspect.cs" />
-    <Compile Include="Interface\IAspect.cs" />
-    <Compile Include="Interface\IJoinPoint.cs" />
-    <Compile Include="Interface\IPointCut.cs" />
+    <Compile Include="AspectXmlSerializer.cs" />
+    <Compile Include="AspectDataContractSerializer.cs" />
+    <Compile Include="AspectSerializerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jal.Aop.Aspect\Jal.Aop.Aspects.csproj">
+      <Project>{2FA32C76-7A52-4AD8-AE24-83BA0229571F}</Project>
+      <Name>Jal.Aop.Aspects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

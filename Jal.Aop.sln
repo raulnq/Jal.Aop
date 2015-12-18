@@ -1,9 +1,34 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop", "Jal.Aop\Jal.Aop.csproj", "{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Installer", "Jal.Aop.Installer\Jal.Aop.Installer.csproj", "{244B3C09-B96C-4166-AD4C-C473B462564A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects", "Jal.Aop.Aspect\Jal.Aop.Aspects.csproj", "{2FA32C76-7A52-4AD8-AE24-83BA0229571F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Installer", "Jal.Aop.Aspects.Installer\Jal.Aop.Aspects.Installer.csproj", "{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Advice", "Jal.Aop.Aspects.Advice\Jal.Aop.Aspects.Advice.csproj", "{28275AAA-6CD3-4D0C-8842-472A1754E4E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Logger", "Jal.Aop.Aspects.Logger\Jal.Aop.Aspects.Logger.csproj", "{33AB142A-F48C-4D01-B753-222508A0A28F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Serializer", "Jal.Aop.Aspects.Serializer\Jal.Aop.Aspects.Serializer.csproj", "{417DA4FD-83C9-4126-B506-2DAD884570A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Advice.Installer", "Jal.Aop.Aspects.Advice.Installer\Jal.Aop.Aspects.Advice.Installer.csproj", "{CF0FA1EA-C447-417B-82A9-C97E5B91BCCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Serializer.Installer", "Jal.Aop.Aspects.Serializer.Installer\Jal.Aop.Aspects.Serializer.Installer.csproj", "{41DF1352-788D-4797-A61C-3C5F5483E4EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Logger.Installer", "JalAop.Aspects.Logger.Installer\Jal.Aop.Aspects.Logger.Installer.csproj", "{C0D54860-B99F-4105-9DD9-E6C241368256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Tests", "Jal.Aop.Tests\Jal.Aop.Tests.csproj", "{74C10962-CDC5-4474-A258-0C2B3226F6C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{390A08B5-79C0-49B3-AAB8-82E5B798A03A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +40,46 @@ Global
 		{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{244B3C09-B96C-4166-AD4C-C473B462564A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{244B3C09-B96C-4166-AD4C-C473B462564A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{244B3C09-B96C-4166-AD4C-C473B462564A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{244B3C09-B96C-4166-AD4C-C473B462564A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA32C76-7A52-4AD8-AE24-83BA0229571F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA32C76-7A52-4AD8-AE24-83BA0229571F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA32C76-7A52-4AD8-AE24-83BA0229571F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA32C76-7A52-4AD8-AE24-83BA0229571F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28275AAA-6CD3-4D0C-8842-472A1754E4E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28275AAA-6CD3-4D0C-8842-472A1754E4E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28275AAA-6CD3-4D0C-8842-472A1754E4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28275AAA-6CD3-4D0C-8842-472A1754E4E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33AB142A-F48C-4D01-B753-222508A0A28F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33AB142A-F48C-4D01-B753-222508A0A28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33AB142A-F48C-4D01-B753-222508A0A28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33AB142A-F48C-4D01-B753-222508A0A28F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{417DA4FD-83C9-4126-B506-2DAD884570A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417DA4FD-83C9-4126-B506-2DAD884570A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417DA4FD-83C9-4126-B506-2DAD884570A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417DA4FD-83C9-4126-B506-2DAD884570A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF0FA1EA-C447-417B-82A9-C97E5B91BCCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF0FA1EA-C447-417B-82A9-C97E5B91BCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF0FA1EA-C447-417B-82A9-C97E5B91BCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF0FA1EA-C447-417B-82A9-C97E5B91BCCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41DF1352-788D-4797-A61C-3C5F5483E4EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41DF1352-788D-4797-A61C-3C5F5483E4EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41DF1352-788D-4797-A61C-3C5F5483E4EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41DF1352-788D-4797-A61C-3C5F5483E4EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D54860-B99F-4105-9DD9-E6C241368256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D54860-B99F-4105-9DD9-E6C241368256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D54860-B99F-4105-9DD9-E6C241368256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D54860-B99F-4105-9DD9-E6C241368256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C10962-CDC5-4474-A258-0C2B3226F6C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C10962-CDC5-4474-A258-0C2B3226F6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C10962-CDC5-4474-A258-0C2B3226F6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C10962-CDC5-4474-A258-0C2B3226F6C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
