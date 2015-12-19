@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop", "Jal.Aop\Jal.Aop.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Installer", "Jal.Aop.Installer\Jal.Aop.Installer.csproj", "{244B3C09-B96C-4166-AD4C-C473B462564A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects", "Jal.Aop.Aspect\Jal.Aop.Aspects.csproj", "{2FA32C76-7A52-4AD8-AE24-83BA0229571F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects", "Jal.Aop.Aspects\Jal.Aop.Aspects.csproj", "{2FA32C76-7A52-4AD8-AE24-83BA0229571F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Installer", "Jal.Aop.Aspects.Installer\Jal.Aop.Aspects.Installer.csproj", "{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5}"
 EndProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Advice.Inst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Serializer.Installer", "Jal.Aop.Aspects.Serializer.Installer\Jal.Aop.Aspects.Serializer.Installer.csproj", "{41DF1352-788D-4797-A61C-3C5F5483E4EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Logger.Installer", "JalAop.Aspects.Logger.Installer\Jal.Aop.Aspects.Logger.Installer.csproj", "{C0D54860-B99F-4105-9DD9-E6C241368256}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Logger.Installer", "Jal.Aop.Aspects.Logger.Installer\Jal.Aop.Aspects.Logger.Installer.csproj", "{C0D54860-B99F-4105-9DD9-E6C241368256}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Tests", "Jal.Aop.Tests\Jal.Aop.Tests.csproj", "{74C10962-CDC5-4474-A258-0C2B3226F6C9}"
 EndProject

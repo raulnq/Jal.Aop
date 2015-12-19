@@ -66,7 +66,7 @@
       <Project>{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5}</Project>
       <Name>Jal.Aop.Aspects.Installer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Jal.Aop.Aspect\Jal.Aop.Aspects.csproj">
+    <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj">
       <Project>{2fa32c76-7a52-4ad8-ae24-83ba0229571f}</Project>
       <Name>Jal.Aop.Aspects</Name>
     </ProjectReference>

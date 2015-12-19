@@ -56,7 +56,7 @@
       <Project>{417DA4FD-83C9-4126-B506-2DAD884570A3}</Project>
       <Name>Jal.Aop.Aspects.Serializer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Jal.Aop.Aspect\Jal.Aop.Aspects.csproj">
+    <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj">
       <Project>{2FA32C76-7A52-4AD8-AE24-83BA0229571F}</Project>
       <Name>Jal.Aop.Aspects</Name>
     </ProjectReference>

@@ -59,7 +59,7 @@
       <Project>{28275AAA-6CD3-4D0C-8842-472A1754E4E7}</Project>
       <Name>Jal.Aop.Aspects.Advice</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Jal.Aop.Aspect\Jal.Aop.Aspects.csproj">
+    <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj">
       <Project>{2FA32C76-7A52-4AD8-AE24-83BA0229571F}</Project>
       <Name>Jal.Aop.Aspects</Name>
     </ProjectReference>
