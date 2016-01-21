@@ -59,9 +59,9 @@
       <Project>{2FA32C76-7A52-4AD8-AE24-83BA0229571F}</Project>
       <Name>Jal.Aop.Aspects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Jal.Aop.Installer\Jal.Aop.Installer.csproj">
+    <ProjectReference Include="..\Jal.Aop.CastleWindsor\Jal.Aop.CastleWindsor.csproj">
       <Project>{244B3C09-B96C-4166-AD4C-C473B462564A}</Project>
-      <Name>Jal.Aop.Installer</Name>
+      <Name>Jal.Aop.CastleWindsor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Jal.Aop\Jal.Aop.csproj">
       <Project>{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}</Project>

@@ -2,7 +2,7 @@
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Jal.Aop.Aspects.Installer;
-using Jal.Aop.Installer;
+using Jal.Aop.CastleWindsor;
 using NUnit.Framework;
 
 namespace Jal.Aop.Tests

@@ -16,5 +16,5 @@ packages\NuGet.CommandLine.3.3.0\tools\nuget pack Jal.Aop.Aspects.Serializer.Ins
 
 packages\NuGet.CommandLine.3.3.0\tools\nuget pack Jal.Aop.Aspects.Logger.Installer\Jal.Aop.Aspects.Logger.Installer.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
 
-packages\NuGet.CommandLine.3.3.0\tools\nuget pack Jal.Aop.Installer\Jal.Aop.Installer.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
+packages\NuGet.CommandLine.3.3.0\tools\nuget pack Jal.Aop.CastleWindsor\Jal.Aop.CastleWindsor.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
 pause;

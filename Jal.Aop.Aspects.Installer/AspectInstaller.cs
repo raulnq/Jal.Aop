@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Jal.Aop.CastleWindsor;
 using Jal.Aop.Impl;
-using Jal.Aop.Installer;
 using Jal.Aop.Interface;
 
 namespace Jal.Aop.Aspects.Installer

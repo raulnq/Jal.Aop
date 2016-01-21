@@ -7,8 +7,8 @@
     <ProjectGuid>{244B3C09-B96C-4166-AD4C-C473B462564A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jal.Aop.Installer</RootNamespace>
-    <AssemblyName>Jal.Aop.Installer</AssemblyName>
+    <RootNamespace>Jal.Aop.CastleWindsor</RootNamespace>
+    <AssemblyName>Jal.Aop.CastleWindsor</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

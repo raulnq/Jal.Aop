@@ -5,7 +5,7 @@ using Castle.Windsor;
 using Jal.Aop.Impl;
 using Jal.Aop.Interface;
 
-namespace Jal.Aop.Installer
+namespace Jal.Aop.CastleWindsor
 {
     public class AopProxy : IInterceptor
     {
