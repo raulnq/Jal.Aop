@@ -15,7 +15,7 @@ namespace Jal.Aop.Aspects.Serializer
 
         public IAspectSerializer Create(Type aspectSerializerType)
         {
-            return aspectSerializerType != null ? _serviceLocator.Resolve<IAspectSerializer>(aspectSerializerType.FullName) : _serviceLocator.Resolve<IAspectSerializer>();
+            return aspectSerializerType != null ? _serviceLocator.Resolve<IAspectSerializer>(aspectSerializerType.FullName) : null;
         }
     }
 }
