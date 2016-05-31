@@ -15,12 +15,13 @@ namespace Jal.Aop.Tests
         [SetUp]
         public void SetUp()
         {
-            AssemblyFinder.Impl.AssemblyFinder.Current = new AssemblyFinder.Impl.AssemblyFinder(TestContext.CurrentContext.TestDirectory);
+            AssemblyFinder.Impl.AssemblyFinder.Current = AssemblyFinder.Impl.AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
+           
             IWindsorContainer container = new WindsorContainer();
             container.Kernel.Resolver.AddSubResolver(new ArrayResolver(container.Kernel));
             container.Kernel.ComponentModelBuilder.AddContributor(new AutomaticInterception());
             container.Register(Component.For<IDumbClass>().ImplementedBy<DumbClass>());
-            container.Install(new AspectInstaller());
+            container.Install(new AspectInstaller(AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Aspect")));
             _dumbClass = container.Resolve<IDumbClass>();
         }
 

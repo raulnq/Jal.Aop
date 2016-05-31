@@ -1,4 +1,8 @@
-﻿using Castle.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
@@ -10,8 +14,12 @@ namespace Jal.Aop.Aspects.Advice.Installer
     {
         private readonly LifestyleType _lifestyleType;
 
-        public AspectAdviceInstaller(LifestyleType lifestyleType = LifestyleType.Singleton)
+        private readonly Assembly[] _adviceSourceAssemblies;
+
+        public AspectAdviceInstaller(Assembly[] adviceSourceAssemblies, LifestyleType lifestyleType = LifestyleType.Singleton)
         {
+            _adviceSourceAssemblies = adviceSourceAssemblies;
+
             _lifestyleType = lifestyleType;
         }
 
@@ -21,9 +29,9 @@ namespace Jal.Aop.Aspects.Advice.Installer
 
             container.Register(Component.For<IExceptionAdvice>().ImplementedBy<ExceptionAdvice>().Named(typeof(ExceptionAdvice).FullName));
 
-            var assemblies = AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Advice");
+            var assemblies = _adviceSourceAssemblies;
 
-            var exceptionHandlerTypes = AssemblyFinder.Impl.AssemblyFinder.Current.GetTypesOf<IExceptionAdvice>(assemblies);
+            var exceptionHandlerTypes = GetTypesOf<IExceptionAdvice>(assemblies);
 
             foreach (var exceptionHandlerType in exceptionHandlerTypes)
             {
@@ -45,7 +53,7 @@ namespace Jal.Aop.Aspects.Advice.Installer
                 }
             }
 
-            var successHandlerTypes = AssemblyFinder.Impl.AssemblyFinder.Current.GetTypesOf<ISuccessAdvice>(assemblies);
+            var successHandlerTypes = GetTypesOf<ISuccessAdvice>(assemblies);
 
             foreach (var successHandlerType in successHandlerTypes)
             {
@@ -67,7 +75,7 @@ namespace Jal.Aop.Aspects.Advice.Installer
                 }
             }
 
-            var entryHandlerTypes = AssemblyFinder.Impl.AssemblyFinder.Current.GetTypesOf<IEntryAdvice>(assemblies);
+            var entryHandlerTypes = GetTypesOf<IEntryAdvice>(assemblies);
 
             foreach (var entryHandlerType in entryHandlerTypes)
             {
@@ -89,6 +97,21 @@ namespace Jal.Aop.Aspects.Advice.Installer
                 }
             }
 
+        }
+
+        public Type[] GetTypesOf<T>(Assembly[] assemblies)
+        {
+            var type = typeof(T);
+            var instances = new List<Type>();
+            foreach (var assembly in assemblies)
+            {
+                var assemblyInstance = (
+                    assembly.GetTypes()
+                    .Where(t => type.IsAssignableFrom(t))
+                    ).ToArray();
+                instances.AddRange(assemblyInstance);
+            }
+            return instances.ToArray();
         }
     }
 }
