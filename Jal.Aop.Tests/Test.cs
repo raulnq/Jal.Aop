@@ -3,6 +3,7 @@ using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Jal.Aop.Aspects.Installer;
 using Jal.Aop.CastleWindsor;
+using Jal.Finder.Atrribute;
 using NUnit.Framework;
 
 namespace Jal.Aop.Tests
@@ -15,13 +16,13 @@ namespace Jal.Aop.Tests
         [SetUp]
         public void SetUp()
         {
-            AssemblyFinder.Impl.AssemblyFinder.Current = AssemblyFinder.Impl.AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
+            var finder = Finder.Impl.AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
            
             IWindsorContainer container = new WindsorContainer();
             container.Kernel.Resolver.AddSubResolver(new ArrayResolver(container.Kernel));
             container.Kernel.ComponentModelBuilder.AddContributor(new AutomaticInterception());
             container.Register(Component.For<IDumbClass>().ImplementedBy<DumbClass>());
-            container.Install(new AspectInstaller(AssemblyFinder.Impl.AssemblyFinder.Current.GetAssemblies("Aspect")));
+            container.Install(new AspectInstaller(finder.GetAssembliesTagged<AssemblyTagAttribute>()));
             _dumbClass = container.Resolve<IDumbClass>();
         }
 

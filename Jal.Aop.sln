@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop", "Jal.Aop\Jal.Aop.csproj", "{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}"
 EndProject
@@ -29,6 +29,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{390A08
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.LightInject", "Jal.Aop.LightInject\Jal.Aop.LightInject.csproj", "{E490561D-8AFD-44B6-9455-8E5217E1C57A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.LightInject.Tests", "Jal.Aop.LightInject.Tests\Jal.Aop.LightInject.Tests.csproj", "{2E61FEDB-4CE0-4D50-ABFB-1EE1DA5E3A72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.LightInject.Aspect.Installer", "Jal.Aop.LightInject.Aspect.Installer\Jal.Aop.LightInject.Aspect.Installer.csproj", "{578B73F6-3908-4DD2-8EF0-C33C1C72E093}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.LightInject.Aspects.Logger.Installer", "Jal.Aop.LightInject.Aspects.Logger.Installer\Jal.Aop.LightInject.Aspects.Logger.Installer.csproj", "{E346E1BA-3450-470E-804E-C9FD5E6EB42A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.LightInject.Aspects.Serializer.Installer", "Jal.Aop.LightInject.Aspects.Serializer.Installer\Jal.Aop.LightInject.Aspects.Serializer.Installer.csproj", "{06652DBF-999E-4486-ADE9-5A12B682FE7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LightInject", "LightInject", "{AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CastleWindsor", "CastleWindsor", "{28B25D2F-523B-459C-B8FD-CD8DA2D629B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.LightInject.Aspects.Advice.Installer", "Jal.Aop.LightInject.Aspects.Advice.Installer\Jal.Aop.LightInject.Aspects.Advice.Installer.csproj", "{2BCBCBCA-5184-4A74-9A34-086B1AD21A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,8 +96,46 @@ Global
 		{74C10962-CDC5-4474-A258-0C2B3226F6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74C10962-CDC5-4474-A258-0C2B3226F6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74C10962-CDC5-4474-A258-0C2B3226F6C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E490561D-8AFD-44B6-9455-8E5217E1C57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E490561D-8AFD-44B6-9455-8E5217E1C57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E490561D-8AFD-44B6-9455-8E5217E1C57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E490561D-8AFD-44B6-9455-8E5217E1C57A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E61FEDB-4CE0-4D50-ABFB-1EE1DA5E3A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E61FEDB-4CE0-4D50-ABFB-1EE1DA5E3A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E61FEDB-4CE0-4D50-ABFB-1EE1DA5E3A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E61FEDB-4CE0-4D50-ABFB-1EE1DA5E3A72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578B73F6-3908-4DD2-8EF0-C33C1C72E093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578B73F6-3908-4DD2-8EF0-C33C1C72E093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578B73F6-3908-4DD2-8EF0-C33C1C72E093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578B73F6-3908-4DD2-8EF0-C33C1C72E093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E346E1BA-3450-470E-804E-C9FD5E6EB42A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E346E1BA-3450-470E-804E-C9FD5E6EB42A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E346E1BA-3450-470E-804E-C9FD5E6EB42A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E346E1BA-3450-470E-804E-C9FD5E6EB42A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06652DBF-999E-4486-ADE9-5A12B682FE7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06652DBF-999E-4486-ADE9-5A12B682FE7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06652DBF-999E-4486-ADE9-5A12B682FE7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06652DBF-999E-4486-ADE9-5A12B682FE7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCBCBCA-5184-4A74-9A34-086B1AD21A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCBCBCA-5184-4A74-9A34-086B1AD21A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCBCBCA-5184-4A74-9A34-086B1AD21A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCBCBCA-5184-4A74-9A34-086B1AD21A65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{244B3C09-B96C-4166-AD4C-C473B462564A} = {28B25D2F-523B-459C-B8FD-CD8DA2D629B2}
+		{C3A8D041-F86F-4B2B-9EC7-AD1C026263D5} = {28B25D2F-523B-459C-B8FD-CD8DA2D629B2}
+		{CF0FA1EA-C447-417B-82A9-C97E5B91BCCB} = {28B25D2F-523B-459C-B8FD-CD8DA2D629B2}
+		{41DF1352-788D-4797-A61C-3C5F5483E4EC} = {28B25D2F-523B-459C-B8FD-CD8DA2D629B2}
+		{C0D54860-B99F-4105-9DD9-E6C241368256} = {28B25D2F-523B-459C-B8FD-CD8DA2D629B2}
+		{74C10962-CDC5-4474-A258-0C2B3226F6C9} = {28B25D2F-523B-459C-B8FD-CD8DA2D629B2}
+		{E490561D-8AFD-44B6-9455-8E5217E1C57A} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
+		{2E61FEDB-4CE0-4D50-ABFB-1EE1DA5E3A72} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
+		{578B73F6-3908-4DD2-8EF0-C33C1C72E093} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
+		{E346E1BA-3450-470E-804E-C9FD5E6EB42A} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
+		{06652DBF-999E-4486-ADE9-5A12B682FE7A} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
+		{2BCBCBCA-5184-4A74-9A34-086B1AD21A65} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
 	EndGlobalSection
 EndGlobal

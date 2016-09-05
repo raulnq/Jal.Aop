@@ -1,26 +1,26 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Jal.Finder.Atrribute;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Jal.Aop.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Jal.Aop.LightInject.Aspects.Advice.Installer")]
+[assembly: AssemblyDescription("LightInject extension for the Jal.Aop.Aspects.Advice library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Raul Naupari")]
-[assembly: AssemblyProduct("Jal.Aop.Tests")]
-[assembly: AssemblyCopyright("Copyright © 2015")]
+[assembly: AssemblyProduct("Jal.Aop.LightInject.Aspects.Advice.Installer")]
+[assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyTag("Aspect")]
+
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8f43322a-6b5b-4568-a125-4a58b059cf4e")]
+[assembly: Guid("2bcbcbca-5184-4a74-9a34-086b1ad21a65")]
 
 // Version information for an assembly consists of the following four values:
 //

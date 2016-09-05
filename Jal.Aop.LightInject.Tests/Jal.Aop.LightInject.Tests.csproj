@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2E61FEDB-4CE0-4D50-ABFB-1EE1DA5E3A72}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Jal.Aop.LightInject.Tests</RootNamespace>
+    <AssemblyName>Jal.Aop.LightInject.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jal.Finder, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jal.Finder.1.0.1.0\lib\net40\Jal.Finder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jal.Locator, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jal.Locator.1.0.6.0\lib\net40\Jal.Locator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jal.Locator.LightInject, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jal.Locator.LightInject.1.0.1\lib\net45\Jal.Locator.LightInject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LightInject, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.4.1.0\lib\net45\LightInject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LightInject.Interception, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.Interception.1.1.0\lib\net45\LightInject.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DumbClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="TestMethodBoundaryAspect.cs" />
+    <Compile Include="TestMethodBoundaryAspect2.cs" />
+    <Compile Include="TestMethodBoundaryAspect3.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj">
+      <Project>{2FA32C76-7A52-4AD8-AE24-83BA0229571F}</Project>
+      <Name>Jal.Aop.Aspects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jal.Aop.LightInject.Aspect.Installer\Jal.Aop.LightInject.Aspect.Installer.csproj">
+      <Project>{578B73F6-3908-4DD2-8EF0-C33C1C72E093}</Project>
+      <Name>Jal.Aop.LightInject.Aspect.Installer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jal.Aop.LightInject.Aspects.Logger.Installer\Jal.Aop.LightInject.Aspects.Logger.Installer.csproj">
+      <Project>{E346E1BA-3450-470E-804E-C9FD5E6EB42A}</Project>
+      <Name>Jal.Aop.LightInject.Aspects.Logger.Installer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jal.Aop.LightInject.Aspects.Serializer.Installer\Jal.Aop.LightInject.Aspects.Serializer.Installer.csproj">
+      <Project>{06652DBF-999E-4486-ADE9-5A12B682FE7A}</Project>
+      <Name>Jal.Aop.LightInject.Aspects.Serializer.Installer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jal.Aop.LightInject\Jal.Aop.LightInject.csproj">
+      <Project>{e490561d-8afd-44b6-9455-8e5217e1c57a}</Project>
+      <Name>Jal.Aop.LightInject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jal.Aop\Jal.Aop.csproj">
+      <Project>{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}</Project>
+      <Name>Jal.Aop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
