@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Jal.Aop.Aspects.Serializer.Installer")]
-[assembly: AssemblyDescription("Castle Windsor installer for the Jal.Aop.Aspects.Serializer library")]
+[assembly: AssemblyTitle("Jal.Aop.Aspects.Correlation")]
+[assembly: AssemblyDescription("CorrelationId factory created for the Jal.Aop.Aspects library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Raul Naupari")]
-[assembly: AssemblyProduct("Jal.Aop.Aspects.Serializer.Installer")]
+[assembly: AssemblyProduct("Jal.Aop.Aspects.Correlation")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("09eb9e9a-55c5-4980-bf49-93d54144a0fd")]
+[assembly: Guid("652bd50f-2e18-4c41-af23-5ce1b35f96cd")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.4.0")]
-[assembly: AssemblyFileVersion("1.0.4.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

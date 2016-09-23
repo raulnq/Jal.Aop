@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2FA32C76-7A52-4AD8-AE24-83BA0229571F}</ProjectGuid>
+    <ProjectGuid>{652BD50F-2E18-4C41-AF23-5CE1B35F96CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Jal.Aop.Aspects</RootNamespace>
-    <AssemblyName>Jal.Aop.Aspects</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>Jal.Aop.Aspects.Correlation</RootNamespace>
+    <AssemblyName>Jal.Aop.Aspects.Correlation</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,43 +30,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Jal.Locator, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jal.Locator.1.0.6.0\lib\net40\Jal.Locator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Impl\NullAdviceFactory.cs" />
-    <Compile Include="Impl\NullAspectLogger.cs" />
-    <Compile Include="Impl\NullAspectSerializerFactory.cs" />
-    <Compile Include="Interface\IAspectSerializerFactory.cs" />
-    <Compile Include="Interface\IAdviceFactory.cs" />
-    <Compile Include="Interface\ICorrelationIdProvider.cs" />
-    <Compile Include="Interface\ICorrelationIdProviderFactory.cs" />
-    <Compile Include="Interface\IExceptionAdvice.cs" />
-    <Compile Include="Interface\IAspectLogger.cs" />
-    <Compile Include="Interface\IAspectSerializer.cs" />
-    <Compile Include="Interface\IEntryAdvice.cs" />
-    <Compile Include="Interface\IExitAdvice.cs" />
-    <Compile Include="Interface\ISuccessAdvice.cs" />
-    <Compile Include="Impl\NullCorrelationIdProviderFactory.cs" />
-    <Compile Include="LogAspect.cs" />
-    <Compile Include="LogAspectAttribute.cs" />
-    <Compile Include="AroundMethodAspect.cs" />
-    <Compile Include="AroundMethodAspectAttribute.cs" />
+    <Compile Include="CorrelationIdProviderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Jal.Aop\Jal.Aop.csproj">
-      <Project>{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}</Project>
-      <Name>Jal.Aop</Name>
+    <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj">
+      <Project>{2FA32C76-7A52-4AD8-AE24-83BA0229571F}</Project>
+      <Name>Jal.Aop.Aspects</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

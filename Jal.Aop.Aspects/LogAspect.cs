@@ -12,15 +12,29 @@ namespace Jal.Aop.Aspects
     {
         public IAspectLogger Log { get; set; }
 
+        public ICorrelationIdProviderFactory CorrelationIdProviderFactory { get; set; }
+
         public IAspectSerializerFactory SerializerFactory { get; set; }
 
         protected Stopwatch StopWatch;
 
-        public readonly string OnEntryTemplate  = "[{0}.cs, {1}] Start Call. Arguments: {2}.";
+        protected string CorrelationId;
 
-        public readonly string OnExitTemplate = "[{0}.cs, {1}] End Call. Took {3} ms. Return Value: {2}";
+        public readonly string OnExceptionTemplate = "[{class}.cs, {method}] Exception.";
+
+        public readonly string OnEntryTemplate  = "[{class}.cs, {method}] Start Call. Arguments: {arguments}.";
+
+        public readonly string OnExitTemplate = "[{class}.cs, {method}] End Call. Took {took} ms. Return Value: {return}";
+
+        public readonly string OnExceptionTemplateWithCorrelation = "[{class}.cs, {method}, {correlationid}] Exception.";
+
+        public readonly string OnEntryTemplateWithCorrelation = "[{class}.cs, {method}, {correlationid}] Start Call. Arguments: {arguments}.";
+
+        public readonly string OnExitTemplateWithCorrelation = "[{class}.cs, {method}, {correlationid}] End Call. Took {took} ms. Return Value: {return}";
 
         protected IAspectSerializer Serializer;
+
+        protected ICorrelationIdProvider Provider;
 
         public LogAspect()
         {
@@ -31,6 +45,11 @@ namespace Jal.Aop.Aspects
         {
             var currentAttribute = CurrentAttribute(joinPoint);
 
+            if (currentAttribute.CorrelationIdProviderType != null && !typeof(ICorrelationIdProvider).IsAssignableFrom(currentAttribute.CorrelationIdProviderType))
+            {
+                throw new Exception("The type used in the property SuccessAdviceType is not valid");
+            }
+
             if (currentAttribute.SerializerType != null && !typeof(IAspectSerializer).IsAssignableFrom(currentAttribute.SerializerType))
             {
                 throw new Exception("The type used in the property SerializerType is not valid");
@@ -39,6 +58,15 @@ namespace Jal.Aop.Aspects
             {
                 SerializerFactory = NullAspectSerializerFactory.Instance;
             }
+            if (CorrelationIdProviderFactory == null)
+            {
+                CorrelationIdProviderFactory = NullCorrelationIdProviderFactory.Instance;
+            }
+            if (SerializerFactory == null)
+            {
+                SerializerFactory = NullAspectSerializerFactory.Instance;
+            }
+
             if (Log == null)
             {
                 Log = NullAspectLogger.Instance;
@@ -46,6 +74,10 @@ namespace Jal.Aop.Aspects
 
             Serializer = SerializerFactory.Create(currentAttribute.SerializerType);
 
+            if (currentAttribute.CorrelationIdProviderType != null)
+            {
+                Provider = CorrelationIdProviderFactory.Create(currentAttribute.CorrelationIdProviderType);
+            }
             StopWatch = new Stopwatch();
 
             if (currentAttribute.LogException)
@@ -87,7 +119,34 @@ namespace Jal.Aop.Aspects
             {
                 parameters = "None";
             }
-            var message = string.Format(OnEntryTemplate, invocation.TargetType.Name, invocation.MethodInfo.Name, parameters);
+
+            var template = OnEntryTemplate;
+
+            if (currentAttribute.LogCorrelationId)
+            {
+                template = OnEntryTemplateWithCorrelation;
+
+                if (Provider != null)
+                {
+                    CorrelationId = Provider.Provide(invocation.Arguments, invocation.TargetObject, invocation.MethodInfo);
+                }
+            }
+
+            if(!string.IsNullOrWhiteSpace(currentAttribute.OnEntryMessageTemplate))
+            {
+                template = currentAttribute.OnEntryMessageTemplate;
+            }
+
+            var message = template.Replace("{class}", invocation.TargetType.Name);
+
+            message = message.Replace("{method}", invocation.MethodInfo.Name);
+
+            message = message.Replace("{arguments}", parameters);
+
+            if (currentAttribute.LogCorrelationId)
+            {
+                message = message.Replace("{correlationid}", CorrelationId);
+            }
 
             Log.Info(message);
 
@@ -122,14 +181,61 @@ namespace Jal.Aop.Aspects
                 returnvalue = "None";
             }
 
-            var message = string.Format(OnExitTemplate, invocation.TargetType.Name, invocation.MethodInfo.Name,returnvalue,  StopWatch.ElapsedMilliseconds);
+            var template = OnExitTemplate;
+
+
+            if (currentAttribute.LogCorrelationId)
+            {
+                template = OnEntryTemplateWithCorrelation;
+            }
+
+            if (!string.IsNullOrWhiteSpace(currentAttribute.OnExitMessageTemplate))
+            {
+                template = currentAttribute.OnExitMessageTemplate;
+            }
+
+            var message = template.Replace("{class}", invocation.TargetType.Name);
+
+            message = message.Replace("{method}", invocation.MethodInfo.Name);
+
+            message = message.Replace("{took}", StopWatch.ElapsedMilliseconds.ToString());
+
+            message = message.Replace("{return}", returnvalue);
+
+            if (currentAttribute.LogCorrelationId)
+            {
+                message = message.Replace("{correlationid}", CorrelationId);
+            }
 
             Log.Info(message);
         }
 
         protected override void OnException(IJoinPoint invocation, Exception ex)
         {
-            Log.Error(ex);
+            var currentAttribute = CurrentAttribute(invocation);
+
+            var template =OnExceptionTemplate;
+
+            if (currentAttribute.LogCorrelationId)
+            {
+                template =OnExceptionTemplateWithCorrelation;
+            }
+
+            if (!string.IsNullOrWhiteSpace(currentAttribute.OnExceptionMessageTemplate))
+            {
+                template = currentAttribute.OnExceptionMessageTemplate;
+            }
+
+            var message = template.Replace("{class}", invocation.TargetType.Name);
+
+            message = message.Replace("{method}", invocation.MethodInfo.Name);
+
+            if (currentAttribute.LogCorrelationId)
+            {
+                message = message.Replace("{correlationid}", CorrelationId);
+            }
+
+            Log.Error(message, ex);
 
             throw new Exception("Exception logged by the LogAspect", ex);
         }

@@ -22,5 +22,10 @@ namespace Jal.Aop.Aspects.Logger
         {
             _log.Error(exception);
         }
+
+        public void Error(string message, Exception exception)
+        {
+            _log.Error(message, exception);
+        }
     }
 }

@@ -14,5 +14,15 @@ namespace Jal.Aop.Aspects
         public bool LogReturnValue { get; set; }
 
         public bool LogException { get; set; }
+
+        public Type CorrelationIdProviderType { get; set; }
+
+        public bool LogCorrelationId { get; set; }
+        
+        public string OnEntryMessageTemplate { get; set; }
+
+        public string OnExitMessageTemplate { get; set; }
+
+        public string OnExceptionMessageTemplate { get; set; }
     }
 }

@@ -16,5 +16,10 @@ namespace Jal.Aop.Aspects.Impl
         {
             
         }
+
+        public void Error(string message, Exception exception)
+        {
+
+        }
     }
 }

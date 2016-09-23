@@ -7,5 +7,7 @@ namespace Jal.Aop.Aspects.Interface
         void Info(string message);
 
         void Error(Exception exception);
+
+        void Error(string message, Exception exception);
     }
 }

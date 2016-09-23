@@ -28,4 +28,6 @@ packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.LightInject.
 
 packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.CastleWindsor\Jal.Aop.CastleWindsor.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
 
+packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.Aspects.Correlation\Jal.Aop.Aspects.Correlation.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
+
 pause;
