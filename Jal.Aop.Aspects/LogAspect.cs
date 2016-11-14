@@ -186,7 +186,7 @@ namespace Jal.Aop.Aspects
 
             if (currentAttribute.LogCorrelationId)
             {
-                template = OnEntryTemplateWithCorrelation;
+                template = OnExitTemplateWithCorrelation;
             }
 
             if (!string.IsNullOrWhiteSpace(currentAttribute.OnExitMessageTemplate))

@@ -30,4 +30,6 @@ packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.CastleWindso
 
 packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.Aspects.Correlation\Jal.Aop.Aspects.Correlation.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
 
+packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.LightInject.Aspect.Correlation.Installer\Jal.Aop.LightInject.Aspects.Correlation.Installer.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
+
 pause;
