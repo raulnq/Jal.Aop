@@ -32,4 +32,6 @@ packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.Aspects.Corr
 
 packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.LightInject.Aspect.Correlation.Installer\Jal.Aop.LightInject.Aspects.Correlation.Installer.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
 
+packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.Aspects.Serializer.Json\Jal.Aop.Aspects.Serializer.Json.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
+
 pause;
