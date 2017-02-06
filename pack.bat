@@ -34,4 +34,6 @@ packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.LightInject.
 
 packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.Aspects.Serializer.Json\Jal.Aop.Aspects.Serializer.Json.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
 
+packages\NuGet.CommandLine.3.4.4-rtm-final\tools\nuget pack Jal.Aop.LightInject.Aspects.Serializer.Json.Installer\Jal.Aop.LightInject.Aspects.Serializer.Json.Installer.csproj -Properties "Configuration=Release;Platform=AnyCPU;OutputPath=bin\Release" -Build -IncludeReferencedProjects -OutputDirectory Jal.Aop.Nuget
+
 pause;
