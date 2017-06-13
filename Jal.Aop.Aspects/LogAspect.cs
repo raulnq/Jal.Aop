@@ -106,7 +106,9 @@ namespace Jal.Aop.Aspects
 
                             if (!string.IsNullOrWhiteSpace(value))
                             {
-                                var s = string.Format("{0} = {1}", parameter.GetType().Name, value);
+                                var t = parameter == null ? string.Empty : parameter.GetType().Name;
+
+                                var s = string.Format("{0} = {1}", t, value);
 
                                 parameters = string.Format("{0}, {1}", s, parameters);
                             }
