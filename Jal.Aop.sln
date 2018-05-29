@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop", "Jal.Aop\Jal.Aop.csproj", "{A08CB451-AD9C-4205-98C1-6090ABE2FCAF}"
 EndProject
@@ -24,11 +24,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Aspects.Logger.Installer", "Jal.Aop.Aspects.Logger.Installer\Jal.Aop.Aspects.Logger.Installer.csproj", "{C0D54860-B99F-4105-9DD9-E6C241368256}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.Tests", "Jal.Aop.Tests\Jal.Aop.Tests.csproj", "{74C10962-CDC5-4474-A258-0C2B3226F6C9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{390A08B5-79C0-49B3-AAB8-82E5B798A03A}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jal.Aop.LightInject", "Jal.Aop.LightInject\Jal.Aop.LightInject.csproj", "{E490561D-8AFD-44B6-9455-8E5217E1C57A}"
 EndProject
@@ -163,5 +158,8 @@ Global
 		{2BCBCBCA-5184-4A74-9A34-086B1AD21A65} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
 		{E782E8E4-E19E-473D-9046-B8B56DE4D96E} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
 		{602824CB-E6EF-40F7-91CE-7DE1E9BBF47C} = {AF1A6A7A-4857-4AF0-A3C9-3B429BE6F01B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {240BE9E9-F273-476A-A637-5E575EC6C727}
 	EndGlobalSection
 EndGlobal

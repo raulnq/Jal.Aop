@@ -18,7 +18,7 @@ namespace Jal.Aop.LightInject.Tests
         [SetUp]
         public void SetUp()
         {
-            var finder = Finder.Impl.AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
+            var finder = Finder.Impl.AssemblyFinder.Create(TestContext.CurrentContext.TestDirectory);
 
             var container = new ServiceContainer();
 

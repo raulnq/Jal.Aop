@@ -16,7 +16,7 @@ namespace Jal.Aop.Tests
         [SetUp]
         public void SetUp()
         {
-            var finder = Finder.Impl.AssemblyFinder.Builder.UsePath(TestContext.CurrentContext.TestDirectory).Create;
+            var finder = Finder.Impl.AssemblyFinder.Create(TestContext.CurrentContext.TestDirectory);
            
             IWindsorContainer container = new WindsorContainer();
             container.Kernel.Resolver.AddSubResolver(new ArrayResolver(container.Kernel));

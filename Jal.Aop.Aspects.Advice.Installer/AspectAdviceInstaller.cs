@@ -47,10 +47,10 @@ namespace Jal.Aop.Aspects.Advice.Installer
                 {
                     container.Register(Component.For<IExceptionAdvice>().ImplementedBy(exceptionHandlerType).LifestyleTransient().Named(exceptionHandlerType.FullName));
                 }
-                if (_lifestyleType == LifestyleType.PerWebRequest)
-                {
-                    container.Register(Component.For<IExceptionAdvice>().ImplementedBy(exceptionHandlerType).LifestylePerWebRequest().Named(exceptionHandlerType.FullName));
-                }
+                //if (_lifestyleType == LifestyleType.PerWebRequest)
+                //{
+                //    container.Register(Component.For<IExceptionAdvice>().ImplementedBy(exceptionHandlerType).LifestylePerWebRequest().Named(exceptionHandlerType.FullName));
+                //}
             }
 
             var successHandlerTypes = GetTypesOf<ISuccessAdvice>(assemblies);
@@ -69,10 +69,10 @@ namespace Jal.Aop.Aspects.Advice.Installer
                 {
                     container.Register(Component.For<ISuccessAdvice>().ImplementedBy(successHandlerType).LifestyleTransient().Named(successHandlerType.FullName));
                 }
-                if (_lifestyleType == LifestyleType.PerWebRequest)
-                {
-                    container.Register(Component.For<ISuccessAdvice>().ImplementedBy(successHandlerType).LifestylePerWebRequest().Named(successHandlerType.FullName));
-                }
+                //if (_lifestyleType == LifestyleType.PerWebRequest)
+                //{
+                //    container.Register(Component.For<ISuccessAdvice>().ImplementedBy(successHandlerType).LifestylePerWebRequest().Named(successHandlerType.FullName));
+                //}
             }
 
             var entryHandlerTypes = GetTypesOf<IEntryAdvice>(assemblies);
@@ -91,10 +91,10 @@ namespace Jal.Aop.Aspects.Advice.Installer
                 {
                     container.Register(Component.For<IEntryAdvice>().ImplementedBy(entryHandlerType).LifestyleTransient().Named(entryHandlerType.FullName));
                 }
-                if (_lifestyleType == LifestyleType.PerWebRequest)
-                {
-                    container.Register(Component.For<IEntryAdvice>().ImplementedBy(entryHandlerType).LifestylePerWebRequest().Named(entryHandlerType.FullName));
-                }
+                //if (_lifestyleType == LifestyleType.PerWebRequest)
+                //{
+                //    container.Register(Component.For<IEntryAdvice>().ImplementedBy(entryHandlerType).LifestylePerWebRequest().Named(entryHandlerType.FullName));
+                //}
             }
 
         }
