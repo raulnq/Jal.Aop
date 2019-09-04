@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Jal.Aop.Aspects.Impl;
@@ -90,7 +91,7 @@ namespace Jal.Aop.Aspects
         {
             var currentAttribute = CurrentAttribute(invocation);
 
-            var parameters = string.Empty;
+            var parameters = new List<object>();
 
             if (currentAttribute.LogArguments)
             {
@@ -100,57 +101,21 @@ namespace Jal.Aop.Aspects
                 {
                     if (currentAttribute.SkipArguments == null || !currentAttribute.SkipArguments.Contains(position))
                     {
-                        if (Serializer != null)
-                        {
-                            var value = Serializer.Serialize(parameter, position);
-
-                            if (!string.IsNullOrWhiteSpace(value))
-                            {
-                                var t = parameter == null ? string.Empty : parameter.GetType().Name;
-
-                                var s = string.Format("{0} = {1}", t, value);
-
-                                parameters = string.Format("{0}, {1}", s, parameters);
-                            }
-                        }
+                        parameters.Add(parameter);
                     }
                     position++;
                 }
             }
-            if (string.IsNullOrWhiteSpace(parameters))
-            {
-                parameters = "None";
-            }
-
-            var template = OnEntryTemplate;
 
             if (currentAttribute.LogCorrelationId)
             {
-                template = OnEntryTemplateWithCorrelation;
-
                 if (Provider != null)
                 {
                     CorrelationId = Provider.Provide(invocation.Arguments, invocation.TargetObject, invocation.MethodInfo);
                 }
             }
 
-            if(!string.IsNullOrWhiteSpace(currentAttribute.OnEntryMessageTemplate))
-            {
-                template = currentAttribute.OnEntryMessageTemplate;
-            }
-
-            var message = template.Replace("{class}", invocation.TargetType.Name);
-
-            message = message.Replace("{method}", invocation.MethodInfo.Name);
-
-            message = message.Replace("{arguments}", parameters);
-
-            if (currentAttribute.LogCorrelationId)
-            {
-                message = message.Replace("{correlationid}", CorrelationId);
-            }
-
-            Log.Info(message);
+            Log.OnEntry(invocation.TargetType.Name, invocation.MethodInfo.Name, parameters.ToArray(), CorrelationId, currentAttribute.OnEntryMessageTemplate, Serializer);
 
             StopWatch.Start();
         }
@@ -161,83 +126,21 @@ namespace Jal.Aop.Aspects
 
             var currentAttribute = CurrentAttribute(invocation);
 
-            var returnvalue = string.Empty;
-
-            if (currentAttribute.LogReturnValue && invocation.ReturnValue!=null)
+            if(currentAttribute.LogReturnValue)
             {
-                if (Serializer != null)
-                {
-                    var value = Serializer.Serialize(invocation.ReturnValue, 0);
-
-                    if (!string.IsNullOrWhiteSpace(value))
-                    {
-                        var s = string.Format("{0} = {1}", invocation.ReturnValue.GetType().Name, value);
-
-                        returnvalue = string.Format("{0}, {1}", s, returnvalue);
-                    }
-                }
+                Log.OnExit(invocation.TargetType.Name, invocation.MethodInfo.Name, invocation.ReturnValue, CorrelationId, currentAttribute.OnExitMessageTemplate, StopWatch.ElapsedMilliseconds, Serializer);
             }
-
-            if (string.IsNullOrWhiteSpace(returnvalue))
+            else
             {
-                returnvalue = "None";
+                Log.OnExit(invocation.TargetType.Name, invocation.MethodInfo.Name, null, CorrelationId, currentAttribute.OnExitMessageTemplate, StopWatch.ElapsedMilliseconds, Serializer);
             }
-
-            var template = OnExitTemplate;
-
-
-            if (currentAttribute.LogCorrelationId)
-            {
-                template = OnExitTemplateWithCorrelation;
-            }
-
-            if (!string.IsNullOrWhiteSpace(currentAttribute.OnExitMessageTemplate))
-            {
-                template = currentAttribute.OnExitMessageTemplate;
-            }
-
-            var message = template.Replace("{class}", invocation.TargetType.Name);
-
-            message = message.Replace("{method}", invocation.MethodInfo.Name);
-
-            message = message.Replace("{took}", StopWatch.ElapsedMilliseconds.ToString());
-
-            message = message.Replace("{return}", returnvalue);
-
-            if (currentAttribute.LogCorrelationId)
-            {
-                message = message.Replace("{correlationid}", CorrelationId);
-            }
-
-            Log.Info(message);
         }
 
         protected override void OnException(IJoinPoint invocation, Exception ex)
         {
             var currentAttribute = CurrentAttribute(invocation);
 
-            var template =OnExceptionTemplate;
-
-            if (currentAttribute.LogCorrelationId)
-            {
-                template =OnExceptionTemplateWithCorrelation;
-            }
-
-            if (!string.IsNullOrWhiteSpace(currentAttribute.OnExceptionMessageTemplate))
-            {
-                template = currentAttribute.OnExceptionMessageTemplate;
-            }
-
-            var message = template.Replace("{class}", invocation.TargetType.Name);
-
-            message = message.Replace("{method}", invocation.MethodInfo.Name);
-
-            if (currentAttribute.LogCorrelationId)
-            {
-                message = message.Replace("{correlationid}", CorrelationId);
-            }
-
-            Log.Error(message, ex);
+            Log.OnException(invocation.TargetType.Name, invocation.MethodInfo.Name, CorrelationId, currentAttribute.OnExceptionMessageTemplate, ex, Serializer);
 
             throw new Exception("Exception logged by the LogAspect", ex);
         }

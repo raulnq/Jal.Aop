@@ -5,7 +5,7 @@ namespace Jal.Aop.Aspects.Serializer.Json
 {
     public class AspectJsonSerializer : IAspectSerializer
     {
-        public string Serialize(object value, int position)
+        public string Serialize(object value)
         {
             return JsonConvert.SerializeObject(value);
         }

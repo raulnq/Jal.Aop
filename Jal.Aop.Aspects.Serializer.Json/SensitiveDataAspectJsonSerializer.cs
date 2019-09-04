@@ -7,7 +7,7 @@ namespace Jal.Aop.Aspects.Serializer.Json
     public class SensitiveDataAspectJsonSerializer<TAttribute> : IAspectSerializer
         where TAttribute : Attribute
     {
-        public string Serialize(object value, int position)
+        public string Serialize(object value)
         {
             var settings = new JsonSerializerSettings() { ContractResolver = new SensitiveDataResolver<TAttribute>() };
             return JsonConvert.SerializeObject(value, settings);

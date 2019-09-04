@@ -7,7 +7,7 @@ namespace Jal.Aop.Aspects.Serializer
 {
     public class AspectXmlSerializer : IAspectSerializer
     {
-        public string Serialize(object value, int position)
+        public string Serialize(object value)
         {
             using (var memoryStream = new MemoryStream())
             {

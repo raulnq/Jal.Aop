@@ -10,8 +10,6 @@ namespace Jal.Aop.Aspects
     {
         public IAdviceFactory AdviceFactory { get; set; }
 
-        public IAspectLogger Log { get; set; }
-
         public AroundMethodAspect()
         {
             HandleException = false;
@@ -44,10 +42,6 @@ namespace Jal.Aop.Aspects
             if (AdviceFactory == null)
             {
                 AdviceFactory = NullAdviceFactory.Instance;
-            }
-            if (Log == null)
-            {
-                Log = NullAspectLogger.Instance;
             }
         }
 
@@ -97,8 +91,6 @@ namespace Jal.Aop.Aspects
             {
                 joinPoint.ReturnValue = handler.Handle(joinPoint.Arguments, ex, joinPoint.MethodInfo, currentAttribute.Context, joinPoint.TargetObject);
             }
-
-            Log.Error(ex);
         }
     }
 }

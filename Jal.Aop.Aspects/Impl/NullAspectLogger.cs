@@ -7,17 +7,17 @@ namespace Jal.Aop.Aspects.Impl
     {
         public static NullAspectLogger Instance = new NullAspectLogger();
 
-        public void Info(string message)
+        public void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, IAspectSerializer serializer)
         {
-            
+
         }
 
-        public void Error(Exception exception)
+        public void OnEntry(string classname, string methodname, object[] arguments, string correlationid, string customtemplate, IAspectSerializer serializer)
         {
-            
+
         }
 
-        public void Error(string message, Exception exception)
+        public void OnException(string classname, string methodname, string correlationid, string customtemplate, Exception ex, IAspectSerializer serializer)
         {
 
         }

@@ -2,6 +2,6 @@
 {
     public interface IAspectSerializer
     {
-        string Serialize(object value, int position);
+        string Serialize(object value);
     }
 }

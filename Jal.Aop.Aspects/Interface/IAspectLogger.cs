@@ -4,10 +4,10 @@ namespace Jal.Aop.Aspects.Interface
 {
     public interface IAspectLogger
     {
-        void Info(string message);
+        void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, IAspectSerializer serializer);
 
-        void Error(Exception exception);
+        void OnEntry(string classname, string methodname, object[] arguments, string correlationid, string customtemplate, IAspectSerializer serializer);
 
-        void Error(string message, Exception exception);
+        void OnException(string classname, string methodname, string correlationid, string customtemplate, Exception ex, IAspectSerializer serializer);
     }
 }
