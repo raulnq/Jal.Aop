@@ -12,11 +12,11 @@ namespace Jal.Aop.Aspects.Logger.Serilog
 
         public readonly string OnExitTemplate = "[{classname}.cs, {methodname}] End Call. Took {duration} ms.";
 
-        public readonly string OnExceptionTemplateWithCorrelation = "[{classname}.cs, {methodname}, {correlationid}] Exception.";
+        public readonly string OnExceptionTemplateWithCorrelation = "[{classname}.cs, {methodname}, {id}] Exception.";
 
-        public readonly string OnEntryTemplateWithCorrelation = "[{classname}.cs, {methodname}, {correlationid}] Start Call.";
+        public readonly string OnEntryTemplateWithCorrelation = "[{classname}.cs, {methodname}, {id}] Start Call.";
 
-        public readonly string OnExitTemplateWithCorrelation = "[{classname}.cs, {methodname}, {correlationid}] End Call. Took {duration} ms.";
+        public readonly string OnExitTemplateWithCorrelation = "[{classname}.cs, {methodname}, {id}] End Call. Took {duration} ms.";
 
         public void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, IAspectSerializer serializer)
         {
