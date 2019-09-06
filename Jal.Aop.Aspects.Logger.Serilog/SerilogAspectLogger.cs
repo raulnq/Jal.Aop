@@ -6,17 +6,17 @@ namespace Jal.Aop.Aspects.Logger.Serilog
 {
     public class SerilogAspectLogger : IAspectLogger
     {
-        public readonly string OnExceptionTemplate = "[{classname}.cs, {methodname}] Exception.";
+        public readonly string OnExceptionTemplate = "[{ClassName}, {MethodName}] Exception.";
 
-        public readonly string OnEntryTemplate = "[{classname}.cs, {methodname}] Start Call.";
+        public readonly string OnEntryTemplate = "[{ClassName}, {MethodName}] Start Call.";
 
-        public readonly string OnExitTemplate = "[{classname}.cs, {methodname}] End Call. Took {duration} ms.";
+        public readonly string OnExitTemplate = "[{ClassName}, {MethodName}] End Call. Took {Duration} ms.";
 
-        public readonly string OnExceptionTemplateWithCorrelation = "[{classname}.cs, {methodname}, {id}] Exception.";
+        public readonly string OnExceptionTemplateWithCorrelation = "[{ClassName}, {MethodName}, {Id}] Exception.";
 
-        public readonly string OnEntryTemplateWithCorrelation = "[{classname}.cs, {methodname}, {id}] Start Call.";
+        public readonly string OnEntryTemplateWithCorrelation = "[{ClassName}, {MethodName}, {Id}] Start Call.";
 
-        public readonly string OnExitTemplateWithCorrelation = "[{classname}.cs, {methodname}, {id}] End Call. Took {duration} ms.";
+        public readonly string OnExitTemplateWithCorrelation = "[{ClassName}, {MethodName}, {Id}] End Call. Took {Duration} ms.";
 
         public void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, IAspectSerializer serializer)
         {
@@ -24,7 +24,7 @@ namespace Jal.Aop.Aspects.Logger.Serilog
             {
                 if(@return!=null)
                 {
-                    var log = Log.ForContext("return", @return, true);
+                    var log = Log.ForContext("Return", @return, true);
                     log.Information(OnExitTemplateWithCorrelation, classname, methodname, correlationid, duration);
                 }
                 else
@@ -36,7 +36,7 @@ namespace Jal.Aop.Aspects.Logger.Serilog
             {
                 if (@return != null)
                 {
-                    var log = Log.ForContext("return", @return, true);
+                    var log = Log.ForContext("Return", @return, true);
                     log.Information(OnExitTemplate, classname, methodname, duration);
                 }
                 else
@@ -52,7 +52,7 @@ namespace Jal.Aop.Aspects.Logger.Serilog
             {
                 if (arguments != null && arguments.Length>0)
                 {
-                    var log = Log.ForContext("parameters", arguments, true);
+                    var log = Log.ForContext("Arguments", arguments, true);
                     log.Information(OnEntryTemplateWithCorrelation, classname, methodname, correlationid);
                 }
                 else
@@ -64,7 +64,7 @@ namespace Jal.Aop.Aspects.Logger.Serilog
             {
                 if (arguments != null && arguments.Length > 0)
                 {
-                    var log = Log.ForContext("parameters", arguments, true);
+                    var log = Log.ForContext("Arguments", arguments, true);
                     log.Information(OnEntryTemplate, classname, methodname);
                 }
                 else
