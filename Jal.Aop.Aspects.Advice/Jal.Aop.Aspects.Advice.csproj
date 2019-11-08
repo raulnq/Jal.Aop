@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Raul Naupari</Authors>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <Company>Raul Naupari</Company>
     <Description>Advice factory created for the Jal.Aop.Aspects library</Description>
     <Copyright />
@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jal.Locator" Version="1.1.1" />
+    <PackageReference Include="Jal.Locator" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>

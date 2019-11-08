@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>LightInject stack of the Jal.Aop library</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.3</Version>
     <Authors>Raul Naupari</Authors>
     <Company>Raul Naupari</Company>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
@@ -14,14 +14,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Jal.Aop.Aspects.Advice\Jal.Aop.Aspects.Advice.csproj" />
     <ProjectReference Include="..\Jal.Aop.Aspects.Correlation\Jal.Aop.Aspects.Correlation.csproj" />
-    <ProjectReference Include="..\Jal.Aop.Aspects.Logger\Jal.Aop.Aspects.Logger.csproj" />
+    <ProjectReference Include="..\Jal.Aop.Aspects.Logger.Serilog\Jal.Aop.Aspects.Logger.Serilog.csproj" />
     <ProjectReference Include="..\Jal.Aop.Aspects.Serializer.Json\Jal.Aop.Aspects.Serializer.Json.csproj" />
     <ProjectReference Include="..\Jal.Aop.Aspects.Serializer\Jal.Aop.Aspects.Serializer.csproj" />
     <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject.Aspect.Correlation.Installer\Jal.Aop.LightInject.Aspects.Correlation.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject.Aspect.Installer\Jal.Aop.LightInject.Aspect.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject.Aspects.Advice.Installer\Jal.Aop.LightInject.Aspects.Advice.Installer.csproj" />
-    <ProjectReference Include="..\Jal.Aop.LightInject.Aspects.Logger.Installer\Jal.Aop.LightInject.Aspects.Logger.Installer.csproj" />
+    <ProjectReference Include="..\Jal.Aop.LightInject.Aspects.Logger.Serilog.Installer\Jal.Aop.LightInject.Aspects.Logger.Serilog.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject.Aspects.Serializer.Installer\Jal.Aop.LightInject.Aspects.Serializer.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject.Aspects.Serializer.Json.Installer\Jal.Aop.LightInject.Aspects.Serializer.Json.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject\Jal.Aop.LightInject.csproj" />

@@ -128,11 +128,11 @@ namespace Jal.Aop.Aspects
 
             if(currentAttribute.LogReturnValue)
             {
-                Log.OnExit(invocation.TargetType.Name, invocation.MethodInfo.Name, invocation.ReturnValue, CorrelationId, currentAttribute.OnExitMessageTemplate, StopWatch.ElapsedMilliseconds, Serializer);
+                Log.OnExit(invocation.TargetType.Name, invocation.MethodInfo.Name, invocation.ReturnValue, CorrelationId, currentAttribute.OnExitMessageTemplate, StopWatch.ElapsedMilliseconds, currentAttribute.LogDuration, Serializer);
             }
             else
             {
-                Log.OnExit(invocation.TargetType.Name, invocation.MethodInfo.Name, null, CorrelationId, currentAttribute.OnExitMessageTemplate, StopWatch.ElapsedMilliseconds, Serializer);
+                Log.OnExit(invocation.TargetType.Name, invocation.MethodInfo.Name, null, CorrelationId, currentAttribute.OnExitMessageTemplate, StopWatch.ElapsedMilliseconds, currentAttribute.LogDuration, Serializer);
             }
         }
 

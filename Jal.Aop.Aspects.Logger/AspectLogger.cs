@@ -14,18 +14,22 @@ namespace Jal.Aop.Aspects.Logger
 
         public readonly string OnExitTemplate = "[{class}.cs, {method}] End Call. Took {took} ms. Return Value: {return}";
 
+        public readonly string OnExitTemplateNoDuration = "[{class}.cs, {method}] End Call. Return Value: {return}";
+
         public readonly string OnExceptionTemplateWithCorrelation = "[{class}.cs, {method}, {correlationid}] Exception.";
 
         public readonly string OnEntryTemplateWithCorrelation = "[{class}.cs, {method}, {correlationid}] Start Call. Arguments: {arguments}.";
 
         public readonly string OnExitTemplateWithCorrelation = "[{class}.cs, {method}, {correlationid}] End Call. Took {took} ms. Return Value: {return}";
 
+        public readonly string OnExitTemplateWithCorrelationNoDuration = "[{class}.cs, {method}, {correlationid}] End Call. Return Value: {return}";
+
         public AspectLogger(ILog log)
         {
             _log = log;
         }
 
-        public void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, IAspectSerializer serializer)
+        public void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, bool logduration, IAspectSerializer serializer)
         {
             var returnvalue = string.Empty;
 
@@ -68,7 +72,7 @@ namespace Jal.Aop.Aspects.Logger
 
             message = message.Replace("{correlationid}", correlationid);
 
-            _log.Info(message);
+            _log.Debug(message);
         }
 
         public void OnEntry(string classname, string methodname, object[] arguments, string correlationid, string customtemplate, IAspectSerializer serializer)
@@ -121,7 +125,7 @@ namespace Jal.Aop.Aspects.Logger
 
             message = message.Replace("{correlationid}", correlationid);
 
-            _log.Info(message);
+            _log.Debug(message);
         }
 
         public void OnException(string classname, string methodname, string correlationid, string customtemplate, Exception ex, IAspectSerializer serializer)

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Raul Naupari</Authors>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <Company>Raul Naupari</Company>
     <Description>Useful aspects created based on the Jal.Aop library</Description>
     <Copyright />

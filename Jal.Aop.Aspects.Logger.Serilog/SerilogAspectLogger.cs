@@ -12,36 +12,44 @@ namespace Jal.Aop.Aspects.Logger.Serilog
 
         public readonly string OnExitTemplate = "[{ClassName}, {MethodName}] End Call. Took {Duration} ms.";
 
+        public readonly string OnExitTemplateNoDuration = "[{ClassName}, {MethodName}] End Call.";
+
         public readonly string OnExceptionTemplateWithCorrelation = "[{ClassName}, {MethodName}, {Id}] Exception.";
 
         public readonly string OnEntryTemplateWithCorrelation = "[{ClassName}, {MethodName}, {Id}] Start Call.";
 
         public readonly string OnExitTemplateWithCorrelation = "[{ClassName}, {MethodName}, {Id}] End Call. Took {Duration} ms.";
 
-        public void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, IAspectSerializer serializer)
+        public readonly string OnExitTemplateWithCorrelationNoDuration = "[{ClassName}, {MethodName}, {Id}] End Call.";
+
+        public void OnExit(string classname, string methodname, object @return, string correlationid, string customtemplate, long duration, bool logduration, IAspectSerializer serializer)
         {
             if (!string.IsNullOrWhiteSpace(correlationid))
             {
+                var template = logduration ? OnExitTemplateWithCorrelation : OnExitTemplateWithCorrelationNoDuration;
+
                 if(@return!=null)
                 {
                     var log = Log.ForContext("Return", @return, true);
-                    log.Information(OnExitTemplateWithCorrelation, classname, methodname, correlationid, duration);
+                    log.Debug(template, classname, methodname, correlationid, duration);
                 }
                 else
                 {
-                    Log.Information(OnExitTemplateWithCorrelation, classname, methodname, correlationid, duration);
+                    Log.Debug(template, classname, methodname, correlationid, duration);
                 }
             }
             else
             {
+                var template = logduration ? OnExitTemplate : OnExitTemplateNoDuration;
+
                 if (@return != null)
                 {
                     var log = Log.ForContext("Return", @return, true);
-                    log.Information(OnExitTemplate, classname, methodname, duration);
+                    log.Debug(template, classname, methodname, duration);
                 }
                 else
                 {
-                    Log.Information(OnExitTemplate, classname, methodname, duration);
+                    Log.Debug(template, classname, methodname, duration);
                 }   
             }
         }
@@ -53,11 +61,11 @@ namespace Jal.Aop.Aspects.Logger.Serilog
                 if (arguments != null && arguments.Length>0)
                 {
                     var log = Log.ForContext("Arguments", arguments, true);
-                    log.Information(OnEntryTemplateWithCorrelation, classname, methodname, correlationid);
+                    log.Debug(OnEntryTemplateWithCorrelation, classname, methodname, correlationid);
                 }
                 else
                 {
-                    Log.Information(OnEntryTemplateWithCorrelation, classname, methodname, correlationid);
+                    Log.Debug(OnEntryTemplateWithCorrelation, classname, methodname, correlationid);
                 }
             }
             else
@@ -65,11 +73,11 @@ namespace Jal.Aop.Aspects.Logger.Serilog
                 if (arguments != null && arguments.Length > 0)
                 {
                     var log = Log.ForContext("Arguments", arguments, true);
-                    log.Information(OnEntryTemplate, classname, methodname);
+                    log.Debug(OnEntryTemplate, classname, methodname);
                 }
                 else
                 {
-                    Log.Information(OnEntryTemplate, classname, methodname);
+                    Log.Debug(OnEntryTemplate, classname, methodname);
                 }
             }
         }
