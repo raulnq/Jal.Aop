@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Jal.Aop.Interface;
 
-namespace Jal.Aop.Impl
+namespace Jal.Aop
 {
     public class PointCut : IPointCut
     {

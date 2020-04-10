@@ -1,60 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Jal.Aop.CastleWindsor;
-using Jal.Aop.Impl;
-using Jal.Aop.Interface;
+using Jal.Locator.CastleWindsor;
 
 namespace Jal.Aop.Aspects.Installer
 {
     public class AspectInstaller : IWindsorInstaller
     {
-        private readonly Assembly[] _aspectSourceAssemblies;
+        private readonly Type[] _type;
 
-        public AspectInstaller(Assembly[] aspectSourceAssemblies)
+        private readonly bool _automaticInterception;
+
+        private readonly Action<IWindsorContainer> _action;
+
+        public AspectInstaller(Type[] type=null, Action<IWindsorContainer> action = null, bool automaticInterception=true)
         {
-            _aspectSourceAssemblies = aspectSourceAssemblies;
+            _type = type;
+
+            _automaticInterception = automaticInterception;
+
+            _action = action;
         }
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var assemblies = _aspectSourceAssemblies;
+            container.AddServiceLocator();
 
-            var aspectTypesfromAssemblies = GetTypesOf<IAspect>(assemblies);
+            if (_automaticInterception)
+            {
+                container.Kernel.ComponentModelBuilder.AddContributor(new AutomaticInterception());
+            }
 
-            var aspectTypes = new List<Type>(aspectTypesfromAssemblies)
+            var types = new List<Type>(_type ?? new Type[] { })
                               {
-                                  typeof (LogAspect),
-                                  typeof (AroundMethodAspect)
+                                  typeof (LoggerAspect),
+                                  typeof (AdviceAspect)
                               }.ToArray();
 
-            container.Register(Component.For(typeof(AopProxy)).DependsOn(new { types = aspectTypes, container }).LifestyleTransient());
+            container.Register(Component.For<IFactory<IAdvice>>().ImplementedBy<Factory<IAdvice>>());
+
+            container.Register(Component.For<IFactory<ILogger>>().ImplementedBy<Factory<ILogger>>());
+
+            container.Register(Component.For<IAspectExecutor>().ImplementedBy<AspectExecutor>().DependsOn(new { types = types }));
+
+            container.Register(Component.For(typeof(AopProxy)).LifestyleTransient());
 
             container.Register(Component.For<IPointCut>().ImplementedBy<PointCut>());
 
-            foreach (var type in aspectTypes)
-            {
-                container.Register(Component.For(type).LifestyleTransient());
-            }
-        }
+            container.Register(Component.For<IFactory<ISerializer>>().ImplementedBy<Factory<ISerializer>>());
 
-        public Type[] GetTypesOf<T>(Assembly[] assemblies)
-        {
-            var type = typeof(T);
-            var instances = new List<Type>();
-            foreach (var assembly in assemblies)
+            container.Register(Component.For<ISerializer>().ImplementedBy<DataContractSerializer>().Named(typeof(DataContractSerializer).FullName));
+
+            container.Register(Component.For<ISerializer>().ImplementedBy<XmlSerializer>().Named(typeof(XmlSerializer).FullName));
+
+            foreach (var type in types)
             {
-                var assemblyInstance = (
-                    assembly.GetTypes()
-                    .Where(t => type.IsAssignableFrom(t))
-                    ).ToArray();
-                instances.AddRange(assemblyInstance);
+                if (!typeof(IAspect).IsAssignableFrom(type))
+                {
+                    throw new Exception($"The type {type.FullName} is a not valid IAspect implementation");
+                }
+                container.Register(Component.For<IAspect>().ImplementedBy(type).Named(type.FullName).LifestyleTransient());
             }
-            return instances.ToArray();
+
+            container.Register(Component.For<IAdvice>().ImplementedBy<Advice>().Named(typeof(Advice).FullName));
+
+            container.Register(Component.For<IFactory<IRequestIdProvider>>().ImplementedBy<Factory<IRequestIdProvider>>());
+
+            if(_action!=null)
+            {
+                _action(container);
+            }
         }
     }
 }

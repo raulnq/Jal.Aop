@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Jal.Aop.Interface
+namespace Jal.Aop
 {
     public interface IPointCut
     {
-        bool CanApply(IJoinPoint joinPoint, Type aspectType);
+        bool CanApply(IJoinPoint joinPoint, Type type);
     }
 }

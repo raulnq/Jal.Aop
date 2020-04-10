@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using Jal.Aop.Interface;
 
-namespace Jal.Aop.Impl
+namespace Jal.Aop
 {
     public class JoinPoint : IJoinPoint
     {
@@ -12,7 +11,7 @@ namespace Jal.Aop.Impl
 
         public MethodInfo MethodInfo { get; set; }
 
-        public object ReturnValue
+        public object Return
         {
             get
             {
@@ -23,8 +22,8 @@ namespace Jal.Aop.Impl
             {
                 _returnValue = value;
 
-                if (SetReturnValueToProxy!=null)
-                    SetReturnValueToProxy(value);
+                if (UpdateProxyInvocation!=null)
+                    UpdateProxyInvocation(value);
             }
         }
 
@@ -32,14 +31,14 @@ namespace Jal.Aop.Impl
 
         public Type TargetType { get; set; }
 
-        public Func<object> ExecuteMethodFromProxy { get; set; }
+        public Action<JoinPoint> ExecuteProxyInvocation { get; set; }
 
-        public Action<object> SetReturnValueToProxy { get; set; }
+        public Action<object> UpdateProxyInvocation { get; set; }
 
         public void Proceed()
         {
-            if (ExecuteMethodFromProxy!=null)
-                ReturnValue = ExecuteMethodFromProxy();
+            if (ExecuteProxyInvocation!=null)
+                ExecuteProxyInvocation(this);
         }
     }
 }

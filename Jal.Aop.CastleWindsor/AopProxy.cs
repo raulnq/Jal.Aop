@@ -1,25 +1,14 @@
-using System;
-using System.Linq;
 using Castle.DynamicProxy;
-using Castle.Windsor;
-using Jal.Aop.Impl;
-using Jal.Aop.Interface;
 
 namespace Jal.Aop.CastleWindsor
 {
     public class AopProxy : IInterceptor
     {
-        private readonly Type[] _types;
+        private readonly IAspectExecutor _executor;
 
-        private readonly IPointCut _pointCut;
-
-        private readonly IWindsorContainer _container;
-
-        public AopProxy(Type[] types, IWindsorContainer container, IPointCut pointCut)
+        public AopProxy(IAspectExecutor executor)
         {
-            _pointCut = pointCut;
-            _types = types;
-            _container = container;
+            _executor = executor;
         }
 
         public void Intercept(IInvocation invocation)
@@ -30,48 +19,23 @@ namespace Jal.Aop.CastleWindsor
 
                 MethodInfo = invocation.GetConcreteMethodInvocationTarget(),
 
-                ReturnValue = invocation.ReturnValue,
+                Return = invocation.ReturnValue,
 
                 TargetObject = invocation.InvocationTarget,
 
                 TargetType = invocation.TargetType,
 
-                ExecuteMethodFromProxy = (() =>
+                ExecuteProxyInvocation = (jp =>
                 {
                     invocation.Proceed();
 
-                    return invocation.ReturnValue;
+                    jp.Return = invocation.ReturnValue;
                 }),
 
-                SetReturnValueToProxy = ((o) => invocation.ReturnValue = o)
+                UpdateProxyInvocation = ((o) => invocation.ReturnValue = o)
             };
 
-            var typesToApply = _types.Where(x => _pointCut.CanApply(joinPoint, x)).ToArray();
-
-            if (typesToApply.Length > 0)
-            {
-                var aspectsToApply = typesToApply.Select(x => _container.Resolve(x) as IAspect).ToArray();
-
-                aspectsToApply = aspectsToApply.OrderBy(x => x.GetOrder(joinPoint)).ToArray();
-
-                var root = aspectsToApply[0];
-
-                var aspect = root;
-
-                for (var i = 1; i < aspectsToApply.Length; i++)
-                {
-                    aspect.NextAspect = aspectsToApply[i];
-
-                    aspect = aspect.NextAspect;
-                }
-
-                root.Apply(joinPoint);
-            }
-            else
-            {
-                invocation.Proceed();
-            }
-
+            _executor.Execute(joinPoint);
         }
     }
 }

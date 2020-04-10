@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Jal.Aop.Interface
+namespace Jal.Aop
 {
     public interface IJoinPoint
     {
@@ -9,7 +9,7 @@ namespace Jal.Aop.Interface
 
         MethodInfo MethodInfo { get; }
 
-        object ReturnValue { get; set; }
+        object Return { get; set; }
 
         object TargetObject { get; }
 

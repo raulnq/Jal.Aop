@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Raul Naupari</Authors>
-    <Version>1.1.2</Version>
+    <Version>2.0.0</Version>
     <Company>Raul Naupari</Company>
     <Description>LightInject proxy implementation for the Jal.Aop library</Description>
     <Copyright />
-    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/raulnq/Jal.Aop</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <PackageTags />
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LightInject" Version="6.2.0" />
+    <PackageReference Include="LightInject" Version="6.3.2" />
     <PackageReference Include="LightInject.Interception" Version="2.0.3" />
   </ItemGroup>
 

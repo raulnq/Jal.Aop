@@ -1,51 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Jal.Aop.Aspects;
-using Jal.Aop.Impl;
-using Jal.Aop.Interface;
+using Jal.Locator;
+using Jal.Locator.LightInject;
 using LightInject;
 
 namespace Jal.Aop.LightInject.Aspect.Installer
 {
     public static class ServiceContainerExtension
     {
-        public static void RegisterAspects(this IServiceContainer container, Assembly[] assemblies)
+        public static void AddLoggerForAop<T>(this IServiceContainer container) where T : ILogger
         {
-            var aspectTypesfromAssemblies = GetTypesOf<IAspect>(assemblies);
+            container.Register<ILogger, T>(typeof(T).FullName, new PerContainerLifetime());
+        }
 
-            var aspectTypes = new List<Type>(aspectTypesfromAssemblies)
+        public static void AddSerializerForAop<T>(this IServiceContainer container) where T : ISerializer
+        {
+            container.Register<ISerializer, T>(typeof(T).FullName, new PerContainerLifetime());
+        }
+
+        public static void AddAdviceForAop<T>(this IServiceContainer container) where T : IAdvice
+        {
+            container.Register<IAdvice, T>(typeof(T).FullName, new PerContainerLifetime());
+        }
+
+        public static void AddRequestIdProviderForAop<T>(this IServiceContainer container) where T : IRequestIdProvider
+        {
+            container.Register<IRequestIdProvider, T>(typeof(T).FullName, new PerContainerLifetime());
+        }
+
+        public static void AddAop(this IServiceContainer container, Type[] aspecttypes=null, Action<IServiceContainer> action = null, bool automaticInterception = true)
+        {
+            container.AddServiceLocator();
+
+            var aspects = new List<Type>(aspecttypes??new Type[] { })
                               {
-                                  typeof (LogAspect),
-                                  typeof (AroundMethodAspect)
+                                  typeof (LoggerAspect),
+                                  typeof (AdviceAspect)
                               }.ToArray();
 
             container.Register<IPointCut, PointCut>(new PerContainerLifetime());
 
-            container.GetInstance<IPointCut>();
+            container.Register<IAspectExecutor>(factory=> new AspectExecutor(aspects, factory.GetInstance<IServiceLocator>(), factory.GetInstance<IPointCut>()) , new PerContainerLifetime());
 
-            container.Register<AopProxy>(factory => new AopProxy(aspectTypes, container, factory.GetInstance<IPointCut>()));
+            container.Register<AopProxy>();
 
-            foreach (var type in aspectTypes)
+            foreach (var type in aspects)
             {
-                container.Register(type);
+                if (!typeof(IAspect).IsAssignableFrom(type))
+                {
+                    throw new Exception($"The type {type.FullName} is a not valid IAspect implementation");
+                }
+                container.Register(typeof(IAspect), type, type.FullName);
             }
-        }
 
-        public static Type[] GetTypesOf<T>(Assembly[] assemblies)
-        {
-            var type = typeof(T);
-            var instances = new List<Type>();
-            foreach (var assembly in assemblies)
+            container.Register<IFactory<ISerializer>, Factory<ISerializer>>(new PerContainerLifetime());
+
+            container.Register<IFactory<IAdvice>, Factory<IAdvice>>(new PerContainerLifetime());
+
+            container.Register<IFactory<ILogger>, Factory<ILogger>>(new PerContainerLifetime());
+
+            container.Register<IFactory<IRequestIdProvider>, Factory<IRequestIdProvider>>(new PerContainerLifetime());
+
+            container.Register<IAdvice, Advice>(typeof(Advice).FullName, new PerContainerLifetime());
+
+            container.Register<ISerializer, DataContractSerializer>(typeof(DataContractSerializer).FullName, new PerContainerLifetime());
+
+            container.Register<ISerializer, XmlSerializer>(typeof(XmlSerializer).FullName, new PerContainerLifetime());
+
+            if(action!=null)
             {
-                var assemblyInstance = (
-                    assembly.GetTypes()
-                    .Where(t => type.IsAssignableFrom(t))
-                    ).ToArray();
-                instances.AddRange(assemblyInstance);
+                action(container);
             }
-            return instances.ToArray();
+
+            if (automaticInterception)
+            {
+                container.RegisterFrom<AutomaticInterceptionCompositionRoot>();
+            }
         }
     }
 }

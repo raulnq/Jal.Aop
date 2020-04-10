@@ -1,8 +1,10 @@
-﻿namespace Jal.Aop.Interface
+﻿namespace Jal.Aop
 {
     public interface IAspect
     {
-        IAspect NextAspect { get; set; }
+        void SetNext(IAspect aspect);
+
+        IAspect GetNext();
 
         void Apply(IJoinPoint joinPoint);
 

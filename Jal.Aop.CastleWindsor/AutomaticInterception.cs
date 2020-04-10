@@ -2,14 +2,12 @@
 using Castle.Core;
 using Castle.MicroKernel;
 using Castle.MicroKernel.ModelBuilder;
-using Jal.Aop.Impl;
 
 namespace Jal.Aop.CastleWindsor
 {
     public class AutomaticInterception : IContributeComponentModelConstruction
     {
         public void ProcessModel(IKernel kernel, ComponentModel model)
-
         {
             var methods = model.Implementation.GetMethods();
 

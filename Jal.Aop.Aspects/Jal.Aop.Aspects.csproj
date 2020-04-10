@@ -3,17 +3,20 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Raul Naupari</Authors>
-    <Version>1.1.2</Version>
+    <Version>2.0.0</Version>
     <Company>Raul Naupari</Company>
     <Description>Useful aspects created based on the Jal.Aop library</Description>
     <Copyright />
-    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/raulnq/Jal.Aop</PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <PackageTags />
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Jal.Aop\Jal.Aop.csproj" />

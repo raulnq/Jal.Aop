@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Jal.Aop.Impl;
 using LightInject;
 using LightInject.Interception;
 

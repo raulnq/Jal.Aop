@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jal.Aop.Impl
+namespace Jal.Aop
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class AbstractAspectAttribute : Attribute

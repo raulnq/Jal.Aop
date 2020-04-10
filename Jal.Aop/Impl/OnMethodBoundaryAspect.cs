@@ -1,15 +1,18 @@
 ﻿using System;
-using Jal.Aop.Interface;
 
-namespace Jal.Aop.Impl
+namespace Jal.Aop
 {
     public abstract class OnMethodBoundaryAspect<T> : AbstractAspect<T> where T : AbstractAspectAttribute
     {
-        protected bool HandleException { get; set; }
+        protected bool HandleException;
+
+        protected T CurrentAttribute;
 
         public override void Apply(IJoinPoint joinPoint)
         {
-            Initialize(joinPoint);
+            CurrentAttribute = Get(joinPoint);
+
+            Init(joinPoint);
 
             OnEntry(joinPoint);
 
@@ -17,13 +20,13 @@ namespace Jal.Aop.Impl
             {
                 if (Continue(joinPoint))
                 {
-                    if (NextAspect == null)
+                    if (GetNext() == null)
                     {
                         joinPoint.Proceed();
                     }
                     else
                     {
-                        NextAspect.Apply(joinPoint);
+                        GetNext().Apply(joinPoint);
                     }
 
                     OnSuccess(joinPoint);

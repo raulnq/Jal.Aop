@@ -1,40 +1,40 @@
 ﻿using System;
-using Jal.Aop.Interface;
 
-namespace Jal.Aop.Impl
+namespace Jal.Aop
 {
     public abstract class OnRetryAspect<T> : OnMethodBoundaryAspect<T> where T : AbstractAspectAttribute
     {
         public override void Apply(IJoinPoint joinPoint)
         {
-            Initialize(joinPoint);
+            Init(joinPoint);
 
-            RetryableCode(joinPoint);
+            Retry(joinPoint);
         }
 
-        private void RetryableCode(IJoinPoint joinPoint)
+        private void Retry(IJoinPoint joinPoint)
         {
             OnEntry(joinPoint);
+
             try
             {
                 if (Continue(joinPoint))
                 {
-                    if (NextAspect == null)
+                    if (GetNext() == null)
                     {
                         joinPoint.Proceed();
                     }
                     else
                     {
-                        NextAspect.Apply(joinPoint);
+                        GetNext().Apply(joinPoint);
                     }
                     OnSuccess(joinPoint);
                 }
             }
             catch (Exception ex)
             {
-                if (CanTryAgain(joinPoint, ex))
+                if (CanRetry(joinPoint, ex))
                 {
-                    RetryableCode(joinPoint);
+                    Retry(joinPoint);
                 }
                 else
                 {
@@ -54,7 +54,7 @@ namespace Jal.Aop.Impl
             }
         }
 
-        protected virtual bool CanTryAgain(IJoinPoint joinPoint, Exception ex)
+        protected virtual bool CanRetry(IJoinPoint joinPoint, Exception ex)
         {
             return false;
         }
