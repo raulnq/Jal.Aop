@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject\Jal.Aop.LightInject.csproj" />
-    <ProjectReference Include="..\Jal.Aop\Jal.Aop.csproj" />
   </ItemGroup>
   
 </Project>

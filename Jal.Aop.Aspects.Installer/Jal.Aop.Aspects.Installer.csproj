@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj" />
     <ProjectReference Include="..\Jal.Aop.CastleWindsor\Jal.Aop.CastleWindsor.csproj" />
-    <ProjectReference Include="..\Jal.Aop\Jal.Aop.csproj" />
   </ItemGroup>
   
 </Project>
