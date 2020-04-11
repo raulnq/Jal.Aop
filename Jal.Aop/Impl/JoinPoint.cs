@@ -3,13 +3,14 @@ using System.Reflection;
 
 namespace Jal.Aop
 {
+
     public class JoinPoint : IJoinPoint
     {
         private object _returnValue;
 
         public object[] Arguments { get; set; }
 
-        public ParameterInfo[] ArgumentInfos { get; set; }
+        //public ArgumentInfo[] ArgumentInfos { get; set; }
 
         public MethodInfo MethodInfo { get; set; }
 

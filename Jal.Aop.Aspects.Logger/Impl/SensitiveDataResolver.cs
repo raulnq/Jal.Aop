@@ -3,7 +3,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Jal.Aop.Aspects.Serializer.Json
+namespace Jal.Aop.Aspects.Logger
 {
     public class SensitiveDataResolver<TAttribute> : DefaultContractResolver
     {

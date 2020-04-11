@@ -37,8 +37,6 @@ namespace Jal.Aop.CastleWindsor
                 UpdateProxyInvocation = ((o) => invocation.ReturnValue = o)
             };
 
-            joinPoint.ArgumentInfos = joinPoint.MethodInfo.GetParameters();
-
             _executor.Execute(joinPoint);
         }
     }

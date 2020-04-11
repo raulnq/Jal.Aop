@@ -4,10 +4,16 @@ namespace Jal.Aop.Aspects
 {
     public interface ILogger
     {
-        void OnExit(string classname, string methodname, object @return, string requestid, string customtemplate, long duration, ISerializer serializer);
+        void OnExit(IJoinPoint joinpoint, Return @return, string requestid, long duration);
 
-        void OnEntry(string classname, string methodname, object[] arguments, string requestid, string customtemplate, ISerializer serializer);
+        void OnExit(IJoinPoint joinpoint, string requestid, long duration);
 
-        void OnException(string classname, string methodname, string requestid, string customtemplate, Exception ex, ISerializer serializer);
+        void OnExit(IJoinPoint joinpoint, Return @return, string requestid);
+
+        void OnExit(IJoinPoint joinpoint, string requestid);
+
+        void OnEntry(IJoinPoint joinpoint, Argument[] arguments, string requestid);
+
+        void OnException(IJoinPoint joinpoint, string requestid, Exception ex);
     }
 }

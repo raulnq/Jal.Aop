@@ -36,8 +36,6 @@ namespace Jal.Aop.LightInject
                 
             };
 
-            joinPoint.ArgumentInfos = joinPoint.MethodInfo.GetParameters();
-
             _executor.Execute(joinPoint);
 
             return joinPoint.Return;

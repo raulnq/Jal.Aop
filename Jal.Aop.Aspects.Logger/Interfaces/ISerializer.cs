@@ -1,4 +1,4 @@
-﻿namespace Jal.Aop.Aspects
+﻿namespace Jal.Aop.Aspects.Logger
 {
     public interface ISerializer
     {

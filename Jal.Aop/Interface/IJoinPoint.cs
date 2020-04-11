@@ -7,10 +7,6 @@ namespace Jal.Aop
     {
         object[] Arguments { get; set; }
 
-
-        ParameterInfo[] ArgumentInfos { get; set; }
-
-
         MethodInfo MethodInfo { get; }
 
         object Return { get; set; }

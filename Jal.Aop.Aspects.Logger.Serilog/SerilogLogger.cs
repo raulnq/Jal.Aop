@@ -7,64 +7,45 @@ namespace Jal.Aop.Aspects.Logger.Serilog
     {
         public readonly string OnExceptionTemplate = "[{ClassName}, {MethodName}] Exception.";
 
-        public readonly string OnEntryTemplate = "[{ClassName}, {MethodName}] Start Call.";
-
-        public readonly string OnExitTemplate = "[{ClassName}, {MethodName}] End Call. Took {Duration} ms.";
-
-        public readonly string OnExitTemplateNoDuration = "[{ClassName}, {MethodName}] End Call.";
-
         public readonly string OnExceptionTemplateWithRequestId = "[{ClassName}, {MethodName}, {Id}] Exception.";
+
+        public readonly string OnEntryTemplate = "[{ClassName}, {MethodName}] Start Call.";
 
         public readonly string OnEntryTemplateWithRequestId = "[{ClassName}, {MethodName}, {Id}] Start Call.";
 
-        public readonly string OnExitTemplateWithRequestId = "[{ClassName}, {MethodName}, {Id}] End Call. Took {Duration} ms.";
+        public readonly string OnExitTemplateWithDuration = "[{ClassName}, {MethodName}] End Call. Took {Duration} ms.";
 
-        public readonly string OnExitTemplateWithRequestIdNoDuration = "[{ClassName}, {MethodName}, {Id}] End Call.";
+        public readonly string OnExitTemplate = "[{ClassName}, {MethodName}] End Call.";
 
-        public void OnExit(string classname, string methodname, object @return, string requestid, string customtemplate, long duration, ISerializer serializer)
+        public readonly string OnExitTemplateWithDurationAndRequestId = "[{ClassName}, {MethodName}, {Id}] End Call. Took {Duration} ms.";
+
+        public readonly string OnExitTemplateWithRequestId = "[{ClassName}, {MethodName}, {Id}] End Call.";
+
+        public void OnExit(IJoinPoint joinpoint, Return @return, string requestid, long duration)
         {
+            var log = Log.ForContext("Return", @return, true);
             if (!string.IsNullOrWhiteSpace(requestid))
             {
-                var template = duration!=-1 ? OnExitTemplateWithRequestId : OnExitTemplateWithRequestIdNoDuration;
-
-                if(@return!=null)
-                {
-                    var log = Log.ForContext("Return", @return, true);
-                    log.Debug(template, classname, methodname, requestid, duration);
-                }
-                else
-                {
-                    Log.Debug(template, classname, methodname, requestid, duration);
-                }
+                log.Debug(OnExitTemplateWithDurationAndRequestId, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, requestid, duration);
             }
             else
             {
-                var template = duration != -1 ? OnExitTemplate : OnExitTemplateNoDuration;
-
-                if (@return != null)
-                {
-                    var log = Log.ForContext("Return", @return, true);
-                    log.Debug(template, classname, methodname, duration);
-                }
-                else
-                {
-                    Log.Debug(template, classname, methodname, duration);
-                }   
+                log.Debug(OnExitTemplateWithDuration, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, duration);
             }
         }
 
-        public void OnEntry(string classname, string methodname, object[] arguments, string requestid, string customtemplate, ISerializer serializer)
+        public void OnEntry(IJoinPoint joinpoint, Argument[] arguments, string requestid)
         {
             if (!string.IsNullOrWhiteSpace(requestid))
             {
                 if (arguments != null && arguments.Length>0)
                 {
                     var log = Log.ForContext("Arguments", arguments, true);
-                    log.Debug(OnEntryTemplateWithRequestId, classname, methodname, requestid);
+                    log.Debug(OnEntryTemplateWithRequestId, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, requestid);
                 }
                 else
                 {
-                    Log.Debug(OnEntryTemplateWithRequestId, classname, methodname, requestid);
+                    Log.Debug(OnEntryTemplateWithRequestId, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, requestid);
                 }
             }
             else
@@ -72,24 +53,61 @@ namespace Jal.Aop.Aspects.Logger.Serilog
                 if (arguments != null && arguments.Length > 0)
                 {
                     var log = Log.ForContext("Arguments", arguments, true);
-                    log.Debug(OnEntryTemplate, classname, methodname);
+                    log.Debug(OnEntryTemplate, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name);
                 }
                 else
                 {
-                    Log.Debug(OnEntryTemplate, classname, methodname);
+                    Log.Debug(OnEntryTemplate, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name);
                 }
             }
         }
 
-        public void OnException(string classname, string methodname, string requestid, string customtemplate, Exception ex, ISerializer serializer)
+        public void OnException(IJoinPoint joinpoint, string requestid, Exception ex)
         {
             if (!string.IsNullOrWhiteSpace(requestid))
             {
-                Log.Error(ex, OnExceptionTemplateWithRequestId, classname, methodname, requestid);
+                Log.Error(ex, OnExceptionTemplateWithRequestId, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, requestid);
             }
             else
             {
-                Log.Error(ex, OnExceptionTemplate, classname, methodname, requestid);
+                Log.Error(ex, OnExceptionTemplate, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name);
+            }
+        }
+
+        public void OnExit(IJoinPoint joinpoint, string requestid, long duration)
+        {
+            if (!string.IsNullOrWhiteSpace(requestid))
+            {
+                Log.Debug(OnExitTemplateWithDurationAndRequestId, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, requestid, duration);
+            }
+            else
+            {
+                Log.Debug(OnExitTemplateWithDuration, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, duration);
+            }
+        }
+
+        public void OnExit(IJoinPoint joinpoint, Return @return, string requestid)
+        {
+            var log = Log.ForContext("Return", @return, true);
+            if (!string.IsNullOrWhiteSpace(requestid))
+            {
+                log.Debug(OnExitTemplateWithRequestId, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, requestid);
+            }
+            else
+            {
+                log.Debug(OnExitTemplate, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name);
+            }
+        }
+
+        public void OnExit(IJoinPoint joinpoint, string requestid)
+        {
+            if (!string.IsNullOrWhiteSpace(requestid))
+            {
+                Log.Debug(OnExitTemplateWithRequestId, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name, requestid);
+            }
+            else
+            {
+                Log.Debug(OnExitTemplate, joinpoint.TargetType.Name, joinpoint.MethodInfo.Name);
             }
         }
     }

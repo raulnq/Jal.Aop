@@ -82,7 +82,7 @@ public interface INumberProvider
 
 public class NumberProvider : INumberProvider
 {
-    [LoggerAspect(LoggerType=typeof(SerilogLogger), SerializerType = typeof(JsonSerializer), LogArguments = true, LogReturn =true, LogDuration =true, LogException =true)]
+    [LoggerAspect(Type=typeof(SerilogLogger), LogArguments = new string[] { "seed" }, LogReturn =true, LogDuration =true, LogException =true)]
     public int Get4(int seed)
     {
         return seed;

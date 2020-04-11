@@ -1,24 +1,23 @@
 ﻿using Jal.Aop.Aspects;
 using Jal.Aop.Aspects.Logger.Serilog;
-using Jal.Aop.Aspects.Serializer.Json;
 
 namespace Jal.Aop.Tests
 {
     public class NumberProvider : INumberProvider
     {
-        [LoggerAspect(LoggerType=typeof(SerilogLogger), SerializerType = typeof(JsonSerializer), LogArguments = true, LogReturn =true, LogDuration =true, LogException =true)]
+        [LoggerAspect(Type=typeof(SerilogLogger), LogArguments = new string[] { "seed" }, LogReturn =true, LogDuration =true, LogException =true)]
         public int Get4(int seed)
         {
             return seed;
         }
 
-        [LoggerAspect(Expression= "id", LoggerType = typeof(SerilogLogger), SerializerType = typeof(JsonSerializer), LogArguments = true, LogReturn = true, LogDuration = true, LogException = true)]
+        [LoggerAspect(Expression= "id", Type = typeof(SerilogLogger), LogArguments = new string[] { "seed","id" }, LogReturn = true, LogDuration = true, LogException = true)]
         public int Get5(int seed, string id)
         {
             return seed;
         }
 
-        [LoggerAspect(Expression = "parameter.Id", LoggerType = typeof(SerilogLogger), SerializerType = typeof(JsonSerializer), LogArguments = true, LogReturn = true, LogDuration = true, LogException = true)]
+        [LoggerAspect(Expression = "parameter.Id", Type = typeof(SerilogLogger), LogArguments = new string[] { "seed", "parameter" }, LogReturn = true, LogDuration = true, LogException = true)]
         public int Get6(int seed, Parameter parameter)
         {
             return seed;

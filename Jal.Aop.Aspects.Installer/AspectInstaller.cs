@@ -50,12 +50,6 @@ namespace Jal.Aop.Aspects.Installer
 
             container.Register(Component.For<IPointCut>().ImplementedBy<PointCut>());
 
-            container.Register(Component.For<IFactory<ISerializer>>().ImplementedBy<Factory<ISerializer>>());
-
-            container.Register(Component.For<ISerializer>().ImplementedBy<DataContractSerializer>().Named(typeof(DataContractSerializer).FullName));
-
-            container.Register(Component.For<ISerializer>().ImplementedBy<XmlSerializer>().Named(typeof(XmlSerializer).FullName));
-
             foreach (var type in types)
             {
                 if (!typeof(IAspect).IsAssignableFrom(type))
@@ -67,7 +61,7 @@ namespace Jal.Aop.Aspects.Installer
 
             container.Register(Component.For<IAdvice>().ImplementedBy<Advice>().Named(typeof(Advice).FullName));
 
-            container.Register(Component.For<IExpressionEvaluator>().ImplementedBy<ExpressionEvaluator>());
+            container.Register(Component.For<IEvaluator>().ImplementedBy<Evaluator>());
 
             if(_action!=null)
             {

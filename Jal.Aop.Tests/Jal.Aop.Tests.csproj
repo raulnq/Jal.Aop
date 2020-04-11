@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Jal.Aop.Aspects.Installer\Jal.Aop.Aspects.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.Aspects.Logger.Serilog\Jal.Aop.Aspects.Logger.Serilog.csproj" />
-    <ProjectReference Include="..\Jal.Aop.Aspects.Serializer.Json\Jal.Aop.Aspects.Serializer.Json.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject.Aspect.Installer\Jal.Aop.LightInject.Aspect.Installer.csproj" />
   </ItemGroup>
 

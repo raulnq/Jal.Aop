@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 
 namespace Jal.Aop.Aspects
 {
-    public class ExpressionEvaluator : IExpressionEvaluator
+    public class Evaluator : IEvaluator
     {
         public TOutput Evaluate<TOutput>(IJoinPoint joinPoint, string expression, TOutput errorvalue = default(TOutput))
         {
@@ -14,9 +13,11 @@ namespace Jal.Aop.Aspects
             {
                 var list = new List<ParameterExpression>();
 
-                for (int i = 0; i < joinPoint.ArgumentInfos.Length; i++)
+                var infos = joinPoint.MethodInfo.GetParameters();
+
+                for (int i = 0; i < infos.Length; i++)
                 {
-                    var info = joinPoint.ArgumentInfos[i];
+                    var info = infos[i];
 
                     list.Add(Expression.Parameter(info.ParameterType, info.Name));
                 }

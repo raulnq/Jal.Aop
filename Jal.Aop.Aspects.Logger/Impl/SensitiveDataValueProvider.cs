@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Serialization;
 
-namespace Jal.Aop.Aspects.Serializer.Json
+namespace Jal.Aop.Aspects.Logger
 {
     public class SensitiveDataValueProvider : IValueProvider
     {

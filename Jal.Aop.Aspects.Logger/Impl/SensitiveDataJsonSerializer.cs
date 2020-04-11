@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Jal.Aop.Aspects.Serializer.Json
+namespace Jal.Aop.Aspects.Logger
 {
     public class SensitiveDataJsonSerializer<TAttribute> : ISerializer
         where TAttribute : Attribute

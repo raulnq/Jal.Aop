@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace Jal.Aop.Aspects
+namespace Jal.Aop.Aspects.Logger
 {
     public class XmlSerializer : ISerializer
     {

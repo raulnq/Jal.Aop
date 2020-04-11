@@ -4,7 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Jal.Aop.Aspects.Installer;
 using Serilog;
 using Jal.Aop.Aspects.Logger.Serilog;
-using Jal.Aop.Aspects.Serializer.Json;
 
 namespace Jal.Aop.Tests.CastleWindsor
 {
@@ -67,7 +66,6 @@ namespace Jal.Aop.Tests.CastleWindsor
 
             container.AddAop(action: c => {
                 c.AddLoggerForAop<SerilogLogger>();
-                c.AddSerializerForAop<JsonSerializer>();
             });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
@@ -91,7 +89,6 @@ namespace Jal.Aop.Tests.CastleWindsor
 
             container.AddAop(action: c => {
                 c.AddLoggerForAop<SerilogLogger>();
-                c.AddSerializerForAop<JsonSerializer>();
             });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
@@ -114,7 +111,6 @@ namespace Jal.Aop.Tests.CastleWindsor
 
             container.AddAop(action: c => {
                 c.AddLoggerForAop<SerilogLogger>();
-                c.AddSerializerForAop<JsonSerializer>();
             });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());

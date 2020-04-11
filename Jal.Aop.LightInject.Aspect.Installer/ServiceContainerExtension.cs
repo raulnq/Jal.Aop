@@ -14,11 +14,6 @@ namespace Jal.Aop.LightInject.Aspect.Installer
             container.Register<ILogger, T>(typeof(T).FullName, new PerContainerLifetime());
         }
 
-        public static void AddSerializerForAop<T>(this IServiceContainer container) where T : ISerializer
-        {
-            container.Register<ISerializer, T>(typeof(T).FullName, new PerContainerLifetime());
-        }
-
         public static void AddAdviceForAop<T>(this IServiceContainer container) where T : IAdvice
         {
             container.Register<IAdvice, T>(typeof(T).FullName, new PerContainerLifetime());
@@ -49,19 +44,13 @@ namespace Jal.Aop.LightInject.Aspect.Installer
                 container.Register(typeof(IAspect), type, type.FullName);
             }
 
-            container.Register<IFactory<ISerializer>, Factory<ISerializer>>(new PerContainerLifetime());
-
             container.Register<IFactory<IAdvice>, Factory<IAdvice>>(new PerContainerLifetime());
 
             container.Register<IFactory<ILogger>, Factory<ILogger>>(new PerContainerLifetime());
 
-            container.Register<IExpressionEvaluator, ExpressionEvaluator>(new PerContainerLifetime());
+            container.Register<IEvaluator, Evaluator>(new PerContainerLifetime());
 
             container.Register<IAdvice, Advice>(typeof(Advice).FullName, new PerContainerLifetime());
-
-            container.Register<ISerializer, DataContractSerializer>(typeof(DataContractSerializer).FullName, new PerContainerLifetime());
-
-            container.Register<ISerializer, XmlSerializer>(typeof(XmlSerializer).FullName, new PerContainerLifetime());
 
             if(action!=null)
             {

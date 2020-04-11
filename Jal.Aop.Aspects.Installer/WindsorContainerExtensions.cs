@@ -20,10 +20,5 @@ namespace Jal.Aop.Aspects.Installer
         {
             container.Register(Component.For<ILogger>().ImplementedBy<T>().Named(typeof(T).FullName));
         }
-
-        public static void AddSerializerForAop<T>(this IWindsorContainer container) where T : ISerializer
-        {
-            container.Register(Component.For<ISerializer>().ImplementedBy<T>().Named(typeof(T).FullName));
-        }
     }
 }

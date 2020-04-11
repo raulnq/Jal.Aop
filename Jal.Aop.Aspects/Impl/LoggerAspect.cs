@@ -10,15 +10,12 @@ namespace Jal.Aop.Aspects
     {
         private ILogger _logger;
 
-        private IFactory<ISerializer> _serializerFactory;
-
         private IFactory<ILogger> _loggerFactory;
 
-        private IExpressionEvaluator _evaluator;
+        private IEvaluator _evaluator;
 
-        public LoggerAspect(IExpressionEvaluator evaluator, IFactory<ISerializer> serializerFactory, IFactory<ILogger> loggerFactory)
+        public LoggerAspect(IEvaluator evaluator, IFactory<ILogger> loggerFactory)
         {
-            _serializerFactory = serializerFactory;
 
             HandleException = false;
 
@@ -31,8 +28,6 @@ namespace Jal.Aop.Aspects
 
         protected string _requestId;
 
-        protected ISerializer _serializer;
-
         protected override void Init(IJoinPoint joinPoint)
         {
             if(!string.IsNullOrEmpty(CurrentAttribute.Expression))
@@ -40,27 +35,17 @@ namespace Jal.Aop.Aspects
                 _requestId = _evaluator.Evaluate(joinPoint, CurrentAttribute.Expression, string.Empty);
             }
 
-            if (CurrentAttribute.SerializerType != null && !typeof(ISerializer).IsAssignableFrom(CurrentAttribute.SerializerType))
+            if (CurrentAttribute.Type == null)
             {
-                throw new Exception("The type used in the property SerializerType is not valid");
+                throw new Exception("The Type should not be null");
             }
 
-            if (CurrentAttribute.SerializerType != null)
+            if (CurrentAttribute.Type != null && !typeof(ILogger).IsAssignableFrom(CurrentAttribute.Type))
             {
-                _serializer = _serializerFactory.Create(joinPoint, CurrentAttribute.SerializerType);
+                throw new Exception("The type used in the property Type is not valid");
             }
 
-            if (CurrentAttribute.LoggerType == null)
-            {
-                throw new Exception("The LoggerType should not be null");
-            }
-
-            if (CurrentAttribute.LoggerType != null && !typeof(ILogger).IsAssignableFrom(CurrentAttribute.LoggerType))
-            {
-                throw new Exception("The type used in the property LoggerType is not valid");
-            }
-
-            _logger = _loggerFactory.Create(joinPoint, CurrentAttribute.LoggerType);
+            _logger = _loggerFactory.Create(joinPoint, CurrentAttribute.Type);
 
             _stopWatch = new Stopwatch();
 
@@ -72,51 +57,61 @@ namespace Jal.Aop.Aspects
 
         protected override void OnEntry(IJoinPoint joinPoint)
         {
-            var parameters = new List<object>();
+            var arguments = new List<Argument>();
 
-            if (CurrentAttribute.LogArguments)
+            if (CurrentAttribute.LogArguments.Length>0)
             {
-                var position = 0;
+                var parameters = joinPoint.MethodInfo.GetParameters();
 
-                foreach (var parameter in joinPoint.Arguments)
+                for (int i = 0; i < parameters.Length; i++)
                 {
-                    if (CurrentAttribute.SkipArguments == null || !CurrentAttribute.SkipArguments.Contains(position))
+                    var parameter = parameters[i];
+
+                    if (CurrentAttribute.LogArguments.Any(x=>x== parameter.Name))
                     {
-                        parameters.Add(parameter);
+                        arguments.Add(new Argument() { Name = parameter.Name, Type= parameter.ParameterType.Name, Value = joinPoint.Arguments[i] });
                     }
-                    position++;
                 }
             }
 
-            _logger.OnEntry(joinPoint.TargetType.Name, joinPoint.MethodInfo.Name, parameters.ToArray(), _requestId, CurrentAttribute.OnEntryMessageTemplate, _serializer);
+            _logger.OnEntry(joinPoint, arguments.ToArray(), _requestId);
 
             _stopWatch.Start();
         }
 
-        protected override void OnExit(IJoinPoint invocation)
+        protected override void OnExit(IJoinPoint joinPoint)
         {
             _stopWatch.Stop();
 
             var duration = _stopWatch.ElapsedMilliseconds;
 
-            var returnvalue = invocation.Return;
-
-            if (!CurrentAttribute.LogReturn)
+            if (CurrentAttribute.LogReturn)
             {
-                returnvalue = null;
+                if(CurrentAttribute.LogDuration)
+                {
+                    _logger.OnExit(joinPoint, new Return() { Type = joinPoint.MethodInfo.ReturnType?.Name, Value = joinPoint.Return }, _requestId, duration);
+                }
+                else
+                {
+                    _logger.OnExit(joinPoint, new Return() { Type = joinPoint.MethodInfo.ReturnType?.Name, Value = joinPoint.Return }, _requestId);
+                }
             }
-
-            if (!CurrentAttribute.LogDuration)
+            else
             {
-                duration = -1;
-            }
-
-            _logger.OnExit(invocation.TargetType.Name, invocation.MethodInfo.Name, returnvalue, _requestId, CurrentAttribute.OnExitMessageTemplate, duration, _serializer);
+                if (CurrentAttribute.LogDuration)
+                {
+                    _logger.OnExit(joinPoint, _requestId, duration);
+                }
+                else
+                {
+                    _logger.OnExit(joinPoint, _requestId);
+                }
+            } 
         }
 
-        protected override void OnException(IJoinPoint invocation, Exception ex)
+        protected override void OnException(IJoinPoint joinPoint, Exception ex)
         {
-            _logger.OnException(invocation.TargetType.Name, invocation.MethodInfo.Name, _requestId, CurrentAttribute.OnExceptionMessageTemplate, ex, _serializer);
+            _logger.OnException(joinPoint, _requestId, ex);
 
             throw new Exception("Exception logged by the LogAspect", ex);
         }

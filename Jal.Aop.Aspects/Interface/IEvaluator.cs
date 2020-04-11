@@ -1,6 +1,6 @@
 ﻿namespace Jal.Aop.Aspects
 {
-    public interface IExpressionEvaluator
+    public interface IEvaluator
     {
         TOutput Evaluate<TOutput>(IJoinPoint joinPoint, string expression, TOutput errorvalue = default(TOutput));
     }

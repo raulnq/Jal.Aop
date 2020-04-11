@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Jal.Aop.Aspects.Installer;
 using LightInject;
 using Jal.Aop.Aspects.Logger.Serilog;
-using Jal.Aop.Aspects.Serializer.Json;
 using Serilog;
 
 namespace Jal.Aop.Tests.LightInject
@@ -68,7 +67,6 @@ namespace Jal.Aop.Tests.LightInject
 
             container.AddAop(action:c=> {
                 c.AddLoggerForAop<SerilogLogger>();
-                c.AddSerializerForAop<JsonSerializer>();
             });
 
             Log.Logger = new LoggerConfiguration()
