@@ -67,7 +67,7 @@ namespace Jal.Aop.Aspects.Installer
 
             container.Register(Component.For<IAdvice>().ImplementedBy<Advice>().Named(typeof(Advice).FullName));
 
-            container.Register(Component.For<IFactory<IRequestIdProvider>>().ImplementedBy<Factory<IRequestIdProvider>>());
+            container.Register(Component.For<IExpressionEvaluator>().ImplementedBy<ExpressionEvaluator>());
 
             if(_action!=null)
             {

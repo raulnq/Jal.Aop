@@ -1,4 +1,6 @@
 using Castle.DynamicProxy;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Jal.Aop.CastleWindsor
 {
@@ -34,6 +36,8 @@ namespace Jal.Aop.CastleWindsor
 
                 UpdateProxyInvocation = ((o) => invocation.ReturnValue = o)
             };
+
+            joinPoint.ArgumentInfos = joinPoint.MethodInfo.GetParameters();
 
             _executor.Execute(joinPoint);
         }

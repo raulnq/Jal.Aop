@@ -82,5 +82,52 @@ namespace Jal.Aop.Tests.CastleWindsor
 
             tests.Proxy_WithLogAspect_ShoudBe(provider);
         }
+
+
+        [TestMethod]
+        public void Proxy_WithLogAspectAndExpression_ShoudBe()
+        {
+            var container = new WindsorContainer();
+
+            container.AddAop(action: c => {
+                c.AddLoggerForAop<SerilogLogger>();
+                c.AddSerializerForAop<JsonSerializer>();
+            });
+
+            container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
+
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}{Properties}").MinimumLevel.Verbose()
+            .CreateLogger();
+
+            var provider = container.Resolve<INumberProvider>();
+
+            var tests = new TestCases();
+
+            tests.Proxy_WithLogAspectAndExpression_ShoudBe(provider);
+        }
+
+        [TestMethod]
+        public void Proxy_WithLogAspectAndComplexExpression_ShoudBe()
+        {
+            var container = new WindsorContainer();
+
+            container.AddAop(action: c => {
+                c.AddLoggerForAop<SerilogLogger>();
+                c.AddSerializerForAop<JsonSerializer>();
+            });
+
+            container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
+
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}{Properties}").MinimumLevel.Verbose()
+            .CreateLogger();
+
+            var provider = container.Resolve<INumberProvider>();
+
+            var tests = new TestCases();
+
+            tests.Proxy_WithLogAspectAndComplexExpression_ShoudBe(provider);
+        }
     }
 }

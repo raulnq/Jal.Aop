@@ -9,6 +9,8 @@ namespace Jal.Aop
 
         public object[] Arguments { get; set; }
 
+        public ParameterInfo[] ArgumentInfos { get; set; }
+
         public MethodInfo MethodInfo { get; set; }
 
         public object Return

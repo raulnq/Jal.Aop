@@ -9,5 +9,9 @@
         int Get3(int seed);
 
         int Get4(int seed);
+
+        int Get5(int seed, string id);
+
+        int Get6(int seed, Parameter parameter);
     }
 }

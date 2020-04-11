@@ -12,6 +12,18 @@ namespace Jal.Aop.Tests
             return seed;
         }
 
+        [LoggerAspect(Expression= "id", LoggerType = typeof(SerilogLogger), SerializerType = typeof(JsonSerializer), LogArguments = true, LogReturn = true, LogDuration = true, LogException = true)]
+        public int Get5(int seed, string id)
+        {
+            return seed;
+        }
+
+        [LoggerAspect(Expression = "parameter.Id", LoggerType = typeof(SerilogLogger), SerializerType = typeof(JsonSerializer), LogArguments = true, LogReturn = true, LogDuration = true, LogException = true)]
+        public int Get6(int seed, Parameter parameter)
+        {
+            return seed;
+        }
+
         [AdviceAspect(Type = typeof(AddAdvice))]
         public int Get3(int seed)
         {

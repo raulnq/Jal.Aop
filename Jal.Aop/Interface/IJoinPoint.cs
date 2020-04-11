@@ -5,7 +5,11 @@ namespace Jal.Aop
 {
     public interface IJoinPoint
     {
-        object[] Arguments { get; }
+        object[] Arguments { get; set; }
+
+
+        ParameterInfo[] ArgumentInfos { get; set; }
+
 
         MethodInfo MethodInfo { get; }
 

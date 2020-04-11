@@ -4,6 +4,24 @@ namespace Jal.Aop.Tests
 {
     public class TestCases
     {
+        public void Proxy_WithLogAspectAndComplexExpression_ShoudBe(INumberProvider provider)
+        {
+            var seed = 0;
+
+            var value = provider.Get6(seed, new Parameter() { Id = 100 });
+
+            value.ShouldBe(0);
+        }
+
+        public void Proxy_WithLogAspectAndExpression_ShoudBe(INumberProvider provider)
+        {
+            var seed = 0;
+
+            var value = provider.Get5(seed, "requestid");
+
+            value.ShouldBe(0);
+        }
+
         public void Proxy_WithLogAspect_ShoudBe(INumberProvider provider)
         {
             var seed = 0;

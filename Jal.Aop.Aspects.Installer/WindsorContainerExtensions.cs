@@ -25,10 +25,5 @@ namespace Jal.Aop.Aspects.Installer
         {
             container.Register(Component.For<ISerializer>().ImplementedBy<T>().Named(typeof(T).FullName));
         }
-
-        public static void AddRequestIdProviderForAop<T>(this IWindsorContainer container) where T : IRequestIdProvider
-        {
-            container.Register(Component.For<IRequestIdProvider>().ImplementedBy<T>().Named(typeof(T).FullName));
-        }
     }
 }

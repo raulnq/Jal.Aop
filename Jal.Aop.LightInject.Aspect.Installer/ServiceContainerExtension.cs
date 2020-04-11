@@ -24,11 +24,6 @@ namespace Jal.Aop.LightInject.Aspect.Installer
             container.Register<IAdvice, T>(typeof(T).FullName, new PerContainerLifetime());
         }
 
-        public static void AddRequestIdProviderForAop<T>(this IServiceContainer container) where T : IRequestIdProvider
-        {
-            container.Register<IRequestIdProvider, T>(typeof(T).FullName, new PerContainerLifetime());
-        }
-
         public static void AddAop(this IServiceContainer container, Type[] aspecttypes=null, Action<IServiceContainer> action = null, bool automaticInterception = true)
         {
             container.AddServiceLocator();
@@ -60,7 +55,7 @@ namespace Jal.Aop.LightInject.Aspect.Installer
 
             container.Register<IFactory<ILogger>, Factory<ILogger>>(new PerContainerLifetime());
 
-            container.Register<IFactory<IRequestIdProvider>, Factory<IRequestIdProvider>>(new PerContainerLifetime());
+            container.Register<IExpressionEvaluator, ExpressionEvaluator>(new PerContainerLifetime());
 
             container.Register<IAdvice, Advice>(typeof(Advice).FullName, new PerContainerLifetime());
 

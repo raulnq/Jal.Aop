@@ -10,21 +10,21 @@ namespace Jal.Aop.Aspects
     {
         private ILogger _logger;
 
-        private IFactory<IRequestIdProvider> _requestIdProviderFactory;
-
         private IFactory<ISerializer> _serializerFactory;
 
         private IFactory<ILogger> _loggerFactory;
 
-        public LoggerAspect(IFactory<ISerializer> serializerFactory, IFactory<IRequestIdProvider> requestIdProviderFactory, IFactory<ILogger> loggerFactory)
+        private IExpressionEvaluator _evaluator;
+
+        public LoggerAspect(IExpressionEvaluator evaluator, IFactory<ISerializer> serializerFactory, IFactory<ILogger> loggerFactory)
         {
             _serializerFactory = serializerFactory;
 
             HandleException = false;
 
-            _requestIdProviderFactory = requestIdProviderFactory;
-
             _loggerFactory = loggerFactory;
+
+            _evaluator = evaluator;
         }
 
         protected Stopwatch _stopWatch;
@@ -33,20 +33,11 @@ namespace Jal.Aop.Aspects
 
         protected ISerializer _serializer;
 
-        protected IRequestIdProvider _provider;
-
         protected override void Init(IJoinPoint joinPoint)
         {
-            if (CurrentAttribute.RequestIdProviderType != null && !typeof(IRequestIdProvider).IsAssignableFrom(CurrentAttribute.RequestIdProviderType))
+            if(!string.IsNullOrEmpty(CurrentAttribute.Expression))
             {
-                throw new Exception("The type used in the property RequestIdProvider is not valid");
-            }
-            
-            if(CurrentAttribute.RequestIdProviderType!=null)
-            {
-                _provider = _requestIdProviderFactory.Create(joinPoint, CurrentAttribute.RequestIdProviderType);
-
-                _requestId = _provider.Provide(joinPoint.Arguments, joinPoint.TargetObject, joinPoint.MethodInfo);
+                _requestId = _evaluator.Evaluate(joinPoint, CurrentAttribute.Expression, string.Empty);
             }
 
             if (CurrentAttribute.SerializerType != null && !typeof(ISerializer).IsAssignableFrom(CurrentAttribute.SerializerType))

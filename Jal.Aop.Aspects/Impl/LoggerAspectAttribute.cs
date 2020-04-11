@@ -18,7 +18,7 @@ namespace Jal.Aop.Aspects
 
         public bool LogException { get; set; }
 
-        public Type RequestIdProviderType { get; set; }
+        public string Expression { get; set; }
 
         public string OnEntryMessageTemplate { get; set; }
 

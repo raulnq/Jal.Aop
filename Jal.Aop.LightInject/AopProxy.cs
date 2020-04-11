@@ -1,4 +1,6 @@
 using LightInject.Interception;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Jal.Aop.LightInject
 {
@@ -33,6 +35,8 @@ namespace Jal.Aop.LightInject
                 },
                 
             };
+
+            joinPoint.ArgumentInfos = joinPoint.MethodInfo.GetParameters();
 
             _executor.Execute(joinPoint);
 
