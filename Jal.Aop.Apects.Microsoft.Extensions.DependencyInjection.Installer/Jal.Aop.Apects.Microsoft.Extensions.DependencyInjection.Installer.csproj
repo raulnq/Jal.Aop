@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+    <Authors>Raul Naupari</Authors>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Description>Microsoft.Extensions.DependencyInjection extension for the Jal.Aop.Aspects library</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jal.Locator.Microsoft.Extensions.DependencyInjection" Version="2.2.1" />
+    <PackageReference Include="System.Reflection.DispatchProxy" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jal.Aop.Aspects\Jal.Aop.Aspects.csproj" />
+    <ProjectReference Include="..\Jal.Aop.DispatchProxy\Jal.Aop.DispatchProxy.csproj" />
+  </ItemGroup>
+</Project>
