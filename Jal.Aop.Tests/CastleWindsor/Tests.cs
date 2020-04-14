@@ -16,7 +16,9 @@ namespace Jal.Aop.Tests.CastleWindsor
         {
             var container = new WindsorContainer();
 
-            container.AddAop(new System.Type[] { typeof(Add) });
+            container.AddAop(c => {
+                c.AddAspect<Add>();
+            });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
 
@@ -32,7 +34,11 @@ namespace Jal.Aop.Tests.CastleWindsor
         {
             var container = new WindsorContainer();
 
-            container.AddAop(new System.Type[] { typeof(Add10), typeof(Multiple5), typeof(Subtract20) });
+            container.AddAop(c=> { 
+                c.AddAspect<Add10>();
+                c.AddAspect<Multiple5>();
+                c.AddAspect<Subtract20>();
+            });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
 
@@ -48,7 +54,7 @@ namespace Jal.Aop.Tests.CastleWindsor
         {
             var container = new WindsorContainer();
 
-            container.AddAop(action: c => { c.AddAdviceForAop<AddAdvice>(); });
+            container.AddAop(action: c => { c.AddAdvice<AddAdvice>(); });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
 
@@ -65,7 +71,7 @@ namespace Jal.Aop.Tests.CastleWindsor
             var container = new WindsorContainer();
 
             container.AddAop(action: c => {
-                c.AddLoggerForAop<SerilogLogger>();
+                c.AddLogger<SerilogLogger>();
             });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
@@ -88,7 +94,7 @@ namespace Jal.Aop.Tests.CastleWindsor
             var container = new WindsorContainer();
 
             container.AddAop(action: c => {
-                c.AddLoggerForAop<SerilogLogger>();
+                c.AddLogger<SerilogLogger>();
             });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
@@ -110,7 +116,7 @@ namespace Jal.Aop.Tests.CastleWindsor
             var container = new WindsorContainer();
 
             container.AddAop(action: c => {
-                c.AddLoggerForAop<SerilogLogger>();
+                c.AddLogger<SerilogLogger>();
             });
 
             container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());

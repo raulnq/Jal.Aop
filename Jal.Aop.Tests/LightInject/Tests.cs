@@ -17,7 +17,10 @@ namespace Jal.Aop.Tests.LightInject
 
             container.Register<INumberProvider, NumberProvider>();
 
-            container.AddAop(new System.Type[] { typeof(Add) });
+            container.AddAop(c =>
+            {
+                c.AddAspect<Add>();
+            });
 
             var provider = container.GetInstance<INumberProvider>();
 
@@ -33,7 +36,12 @@ namespace Jal.Aop.Tests.LightInject
 
             container.Register<INumberProvider, NumberProvider>();
 
-            container.AddAop(new System.Type[] { typeof(Add10), typeof(Multiple5), typeof(Subtract20), });
+            container.AddAop(c=>
+            {
+                c.AddAspect<Add10>();
+                c.AddAspect<Multiple5>();
+                c.AddAspect<Subtract20>();
+            });
 
             var provider = container.GetInstance<INumberProvider>();
 
@@ -49,7 +57,7 @@ namespace Jal.Aop.Tests.LightInject
 
             container.Register<INumberProvider, NumberProvider>();
 
-            container.AddAop(action:c=> { c.AddAdviceForAop<AddAdvice>(); });
+            container.AddAop(action:c=> { c.AddAdvice<AddAdvice>(); });
 
             var provider = container.GetInstance<INumberProvider>();
 
@@ -66,7 +74,7 @@ namespace Jal.Aop.Tests.LightInject
             container.Register<INumberProvider, NumberProvider>();
 
             container.AddAop(action:c=> {
-                c.AddLoggerForAop<SerilogLogger>();
+                c.AddLogger<SerilogLogger>();
             });
 
             Log.Logger = new LoggerConfiguration()

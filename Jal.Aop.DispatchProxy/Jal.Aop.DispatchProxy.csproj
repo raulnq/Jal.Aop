@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Raul Naupari</Authors>
     <Company>Raul NaupariRaul Naupari</Company>
-    <Version>2.0.0</Version>
+    <Version>2.3.0</Version>
     <Description>Native proxy implementation for the Jal.Aop library</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>

@@ -9,40 +9,28 @@ namespace Jal.Aop.LightInject.Aspect.Installer
 {
     public static class ServiceContainerExtension
     {
-        public static void AddLoggerForAop<T>(this IServiceContainer container) where T : ILogger
-        {
-            container.Register<ILogger, T>(typeof(T).FullName, new PerContainerLifetime());
-        }
-
-        public static void AddAdviceForAop<T>(this IServiceContainer container) where T : IAdvice
-        {
-            container.Register<IAdvice, T>(typeof(T).FullName, new PerContainerLifetime());
-        }
-
-        public static void AddAop(this IServiceContainer container, Type[] aspecttypes=null, Action<IServiceContainer> action = null, bool automaticInterception = true)
+        public static void AddAop(this IServiceContainer container, Action<IAopAspectsBuilder> action = null, bool automaticInterception = true)
         {
             container.AddServiceLocator();
 
-            var aspects = new List<Type>(aspecttypes??new Type[] { })
-                              {
-                                  typeof (LoggerAspect),
-                                  typeof (AdviceAspect)
-                              }.ToArray();
+            var types = new List<Type>();
+
+            var builder = new AopAspectsBuilder(container, types);
+
+            builder.AddAspect<LoggerAspect>();
+
+            builder.AddAspect<AdviceAspect>();
+
+            if (action != null)
+            {
+                action(builder);
+            }
 
             container.Register<IPointCut, PointCut>(new PerContainerLifetime());
 
-            container.Register<IAspectExecutor>(factory=> new AspectExecutor(aspects, factory.GetInstance<IServiceLocator>(), factory.GetInstance<IPointCut>()) , new PerContainerLifetime());
+            container.Register<IAspectExecutor>(factory=> new AspectExecutor(builder.Types.ToArray(), factory.GetInstance<IServiceLocator>(), factory.GetInstance<IPointCut>()) , new PerContainerLifetime());
 
             container.Register<AopProxy>();
-
-            foreach (var type in aspects)
-            {
-                if (!typeof(IAspect).IsAssignableFrom(type))
-                {
-                    throw new Exception($"The type {type.FullName} is a not valid IAspect implementation");
-                }
-                container.Register(typeof(IAspect), type, type.FullName);
-            }
 
             container.Register<IFactory<IAdvice>, Factory<IAdvice>>(new PerContainerLifetime());
 
@@ -51,11 +39,6 @@ namespace Jal.Aop.LightInject.Aspect.Installer
             container.Register<IEvaluator, Evaluator>(new PerContainerLifetime());
 
             container.Register<IAdvice, Advice>(typeof(Advice).FullName, new PerContainerLifetime());
-
-            if(action!=null)
-            {
-                action(container);
-            }
 
             if (automaticInterception)
             {

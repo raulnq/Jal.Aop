@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Jal.Aop.Aspects.Installer;
 using Serilog;
-using Jal.Aop.Apects.Microsoft.Extensions.DependencyInjection.Installer;
+using Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer;
 using Microsoft.Extensions.DependencyInjection;
 using Jal.Aop.Aspects.Logger.Serilog;
 
@@ -16,10 +16,14 @@ namespace Jal.Aop.Tests.Microsoft.Extensions.DependencyInjection
         {
             var container = new ServiceCollection();
 
-            container.AddAop(new System.Type[] { typeof(Add) }, c=>
+            container.AddSingleton<INumberProvider, NumberProvider>();
+
+            container.AddAop(c=>
             {
-                c.AddSingleton<INumberProvider, NumberProvider>();
+                c.AddAspect<Add>();
             });
+
+            
 
             var p = container.BuildServiceProvider();
 
@@ -35,10 +39,16 @@ namespace Jal.Aop.Tests.Microsoft.Extensions.DependencyInjection
         {
             var container = new ServiceCollection();
 
-            container.AddAop(new System.Type[] { typeof(Add10), typeof(Multiple5), typeof(Subtract20) }, c =>
+            container.AddSingleton<INumberProvider, NumberProvider>();
+
+            container.AddAop(c =>
             {
-                c.AddSingleton<INumberProvider, NumberProvider>();
+                c.AddAspect<Add10>();
+                c.AddAspect<Multiple5>();
+                c.AddAspect<Subtract20>();
             });
+
+            
 
             var p = container.BuildServiceProvider();
 
@@ -54,9 +64,10 @@ namespace Jal.Aop.Tests.Microsoft.Extensions.DependencyInjection
         {
             var container = new ServiceCollection();
 
+            container.AddSingleton<INumberProvider, NumberProvider>();
+
             container.AddAop(action: c => { 
-                c.AddAdviceForAop<AddAdvice>();
-                c.AddSingleton<INumberProvider, NumberProvider>();
+                c.AddAdvice<AddAdvice>();
             });
 
             var p = container.BuildServiceProvider();
@@ -73,11 +84,14 @@ namespace Jal.Aop.Tests.Microsoft.Extensions.DependencyInjection
         {
             var container = new ServiceCollection();
 
+            container.AddSingleton<INumberProvider, NumberProvider>();
+
             container.AddAop(action: c =>
             {
-                c.AddLoggerForAop<SerilogLogger>();
-                c.AddSingleton<INumberProvider, NumberProvider>();
+                c.AddLogger<SerilogLogger>();
             });
+
+            
 
             Log.Logger = new LoggerConfiguration()
             .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}{Properties}").MinimumLevel.Verbose()

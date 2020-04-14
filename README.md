@@ -114,7 +114,13 @@ public class NumberProvider : INumberProvider
 ```csharp
  var container = new WindsorContainer();
 
-container.AddAop(new System.Type[] { typeof(Add10), typeof(Multiple5), typeof(Subtract20) });
+ //should be declared before any registration in the container
+container.AddAop(c =>
+{
+    c.AddAspect<Add10>();
+    c.AddAspect<Multiple5>();
+    c.AddAspect<Subtract20>();
+});
 
 container.Register(Component.For<INumberProvider>().ImplementedBy<NumberProvider>());
 
@@ -132,9 +138,38 @@ var container = new ServiceContainer();
 
 container.Register<INumberProvider, NumberProvider>();
 
-container.AddAop(new System.Type[] { typeof(Add10), typeof(Multiple5), typeof(Subtract20), });
+ //should be declared after all registrations in the container
+container.AddAop(c =>
+{
+    c.AddAspect<Add10>();
+    c.AddAspect<Multiple5>();
+    c.AddAspect<Subtract20>();
+});
 
 var provider = container.GetInstance<INumberProvider>();
+
+var seed = 5;
+
+var value = provider.Get2(seed);
+``` 
+
+## Microsoft.Extensions.DependencyInjection [![NuGet](https://img.shields.io/nuget/v/Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer.svg)](https://www.nuget.org/packages/Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer)
+
+```csharp
+var container = new ServiceContainer();
+
+container.AddSingleton<INumberProvider, NumberProvider>();
+
+container.AddAop(c =>
+{
+    c.AddAspect<Add10>();
+    c.AddAspect<Multiple5>();
+    c.AddAspect<Subtract20>();
+});
+
+var p = container.BuildServiceProvider();
+
+var provider = p.GetService<INumberProvider>();
 
 var seed = 5;
 

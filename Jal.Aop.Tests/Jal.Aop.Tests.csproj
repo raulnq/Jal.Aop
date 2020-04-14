@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer\Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.Aspects.Installer\Jal.Aop.Aspects.Installer.csproj" />
     <ProjectReference Include="..\Jal.Aop.Aspects.Logger.Serilog\Jal.Aop.Aspects.Logger.Serilog.csproj" />
     <ProjectReference Include="..\Jal.Aop.LightInject.Aspect.Installer\Jal.Aop.LightInject.Aspect.Installer.csproj" />
-    <ProjectReference Include="..\Jal.Aop.Proxy.Apects.Microsoft.Extensions.DependencyInjection.Installer\Jal.Aop.Apects.Microsoft.Extensions.DependencyInjection.Installer.csproj" />
   </ItemGroup>
 
 </Project>

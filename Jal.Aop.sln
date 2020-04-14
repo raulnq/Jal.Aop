@@ -32,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jal.Aop.DispatchProxy", "Jal.Aop.DispatchProxy\Jal.Aop.DispatchProxy.csproj", "{8E79876A-A01A-46D3-A175-C2AED52312D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jal.Aop.Apects.Microsoft.Extensions.DependencyInjection.Installer", "Jal.Aop.Apects.Microsoft.Extensions.DependencyInjection.Installer\Jal.Aop.Apects.Microsoft.Extensions.DependencyInjection.Installer.csproj", "{5849FD6E-1EAD-4B91-B783-835FDA37A98C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer", "Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer\Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer.csproj", "{5849FD6E-1EAD-4B91-B783-835FDA37A98C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft.Extensions.DependencyInjection", "Microsoft.Extensions.DependencyInjection", "{F39FA937-FB4C-479A-B1E1-DDBF76A77658}"
 EndProject

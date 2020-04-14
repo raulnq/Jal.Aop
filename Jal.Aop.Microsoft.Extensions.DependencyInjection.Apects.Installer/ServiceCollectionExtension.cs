@@ -7,42 +7,69 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Jal.Aop.Apects.Microsoft.Extensions.DependencyInjection.Installer
+namespace Jal.Aop.Microsoft.Extensions.DependencyInjection.Apects.Installer
 {
+    public class AopAspectsBuilder : IAopAspectsBuilder
+    {
+        private readonly IServiceCollection _container;
+
+        public List<Type> Types { get; }
+
+        public AopAspectsBuilder(IServiceCollection container, List<Type> types)
+        {
+            _container = container;
+
+            Types = types;
+        }
+
+        public IAopAspectsBuilder AddAdvice<TImplementation>() where TImplementation : class, IAdvice
+        {
+            _container.AddSingleton<IAdvice, TImplementation>();
+
+            return this;
+        }
+
+        public IAopAspectsBuilder AddLogger<TImplementation>() where TImplementation : class, ILogger
+        {
+            _container.AddSingleton<ILogger, TImplementation>();
+
+            return this;
+        }
+
+        public IAopAspectsBuilder AddAspect<TImplementation>() where TImplementation : class, IAspect
+        {
+            var type = typeof(TImplementation);
+
+            Types.Add(type);
+
+            _container.AddTransient(typeof(IAspect), type);
+
+            return this;
+        }
+    }
+
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddLoggerForAop<T>(this IServiceCollection container) where T : class, ILogger
-        {
-            return container.AddSingleton<ILogger, T>();
-        }
-
-        public static IServiceCollection AddAdviceForAop<T>(this IServiceCollection container) where T : class, IAdvice
-        {
-            return container.AddSingleton<IAdvice, T>();
-        }
-
-        public static IServiceCollection AddAop(this IServiceCollection servicecollection, Type[] aspecttypes = null, Action<IServiceCollection> action = null, bool automaticInterception = true)
+        public static IServiceCollection AddAop(this IServiceCollection servicecollection, Action<IAopAspectsBuilder> action = null, bool automaticInterception = true)
         {
             servicecollection.AddServiceLocator();
 
-            var aspects = new List<Type>(aspecttypes ?? new Type[] { })
-                              {
-                                  typeof (LoggerAspect),
-                                  typeof (AdviceAspect)
-                              }.ToArray();
+            var types = new List<Type>();
+
+            var builder = new AopAspectsBuilder(servicecollection, types);
+
+            builder.AddAspect<LoggerAspect>();
+
+            builder.AddAspect<AdviceAspect>();
+
+            if (action != null)
+            {
+                action(builder);
+            }
 
             servicecollection.AddSingleton<IPointCut, PointCut>();
 
-            servicecollection.AddSingleton<IAspectExecutor>(factory => new AspectExecutor(aspects, factory.GetService<IServiceLocator>(), factory.GetService<IPointCut>()));
-
-            foreach (var type in aspects)
-            {
-                if (!typeof(IAspect).IsAssignableFrom(type))
-                {
-                    throw new Exception($"The type {type.FullName} is a not valid IAspect implementation");
-                }
-                servicecollection.AddTransient(typeof(IAspect), type);
-            }
+            servicecollection.AddSingleton<IAspectExecutor>(factory => new AspectExecutor(builder.Types.ToArray(), factory.GetService<IServiceLocator>(), factory.GetService<IPointCut>())); ;
 
             servicecollection.AddSingleton<IFactory<IAdvice>, Factory<IAdvice>>();
 
@@ -51,11 +78,6 @@ namespace Jal.Aop.Apects.Microsoft.Extensions.DependencyInjection.Installer
             servicecollection.AddSingleton<IEvaluator, Evaluator>();
 
             servicecollection.AddSingleton<IAdvice, Advice>();
-
-            if (action != null)
-            {
-                action(servicecollection);
-            }
 
             if(automaticInterception)
             {

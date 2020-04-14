@@ -1,24 +1,34 @@
 ﻿using System;
-using Castle.MicroKernel.Registration;
+using System.Collections.Generic;
 using Castle.Windsor;
+using Jal.Locator.CastleWindsor;
 
 namespace Jal.Aop.Aspects.Installer
 {
+
+
     public static class WindsorContainerExtensions
     {
-        public static void AddAop(this IWindsorContainer container, Type[] types = null, Action<IWindsorContainer> action = null, bool automaticInterception = true)
+        public static void AddAop(this IWindsorContainer container, Action<IAopAspectsBuilder> action = null, bool automaticInterception = true)
         {
-            container.Install(new AspectInstaller(types, action, automaticInterception));
-        }
+            container.AddServiceLocator();
 
-        public static void AddAdviceForAop<T>(this IWindsorContainer container) where T: IAdvice
-        {
-            container.Register(Component.For<IAdvice>().ImplementedBy<T>().Named(typeof(T).FullName));
-        }
+            var types = new List<Type>();
 
-        public static void AddLoggerForAop<T>(this IWindsorContainer container) where T : ILogger
-        {
-            container.Register(Component.For<ILogger>().ImplementedBy<T>().Named(typeof(T).FullName));
+            var builder = new AopAspectsBuilder(container, types);
+
+            builder.AddAspect<LoggerAspect>();
+
+            builder.AddAspect<AdviceAspect>();
+
+            if (action != null)
+            {
+                action(builder);
+            }
+
+            container.Install(new AspectInstaller(builder.Types.ToArray(), automaticInterception));
+
+
         }
     }
 }
