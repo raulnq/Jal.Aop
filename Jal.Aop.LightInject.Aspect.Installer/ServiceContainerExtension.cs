@@ -21,6 +21,8 @@ namespace Jal.Aop.LightInject.Aspect.Installer
 
             builder.AddAspect<AdviceAspect>();
 
+            builder.AddAspect<RetryAspect>();
+
             if (action != null)
             {
                 action(builder);
